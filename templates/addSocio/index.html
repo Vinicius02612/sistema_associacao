@@ -13,6 +13,16 @@
     
     <title>Adicionar Sócio</title>
     <style>
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        padding: 0.5rem 0;
+        padding-right: 2rem;
+        padding-left: 15%;
+        font-size: 0.7rem;
+      }
       .add-container {
         margin: 0 auto;
         padding-left: 12rem;
@@ -154,12 +164,12 @@
       </div>
       
       <!-- Alerta fora da estrutura do grid -->
-      <div class="alert alert-success alert-dismissible fade" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; background-color: #0B7A2D; color: white; height: auto;">
-        Sócio cadastrado com sucesso
+      <div class="alert alert-dismissible fade" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; height: auto;">
+        <span id="alert-text"></span>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
-      </div>
+      </div> 
     
       
     </div>
@@ -167,6 +177,26 @@
     <script>
       $(document).ready(function() {
         $('#cadastrar').click(function() {
+          // Remover classes de cores anteriores
+          $('#alerta').removeClass('alert-success alert-warning alert-danger');
+          
+          // Verificar se o sócio foi cadastrado com sucesso
+          var sucesso = true; // Troque isso pela sua lógica real
+          if (sucesso) {
+            $('#alerta').addClass('alert-success'); // Adiciona classe para cor verde
+            $('#alert-text').text('Sócio cadastrado com sucesso');
+          } else {
+            // Verificar se já existe um sócio cadastrado com esse CPF
+            var existe = true; // Troque isso pela sua lógica real
+            if (existe) {
+              $('#alerta').addClass('alert-warning'); // Adiciona classe para cor amarela
+              $('#alert-text').text('Já existe um sócio cadastrado com esse CPF');
+            } else {
+              $('#alerta').addClass('alert-danger'); // Adiciona classe para cor vermelha
+              $('#alert-text').text('Erro ao cadastrar sócio, verifique as informações');
+            }
+          }
+          
           $('#alerta').addClass('show'); // Mostra a notificação
       
           // Remove a notificação após 5 segundos

@@ -13,6 +13,64 @@
     <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <title>Home Page</title>
+    <style>
+        .container {
+            padding-left: 3rem;
+            padding-top: 7.5rem;
+            font-weight: 500;
+            font-size: medium;
+            font-style: normal;
+            color: #00000062;
+        }
+
+        .container h2 {
+            padding-left: 3rem;
+            padding-bottom: 2rem;
+        }
+
+        .colunAtalhos h2 {
+            font-weight: 600;
+            padding-left: 4rem;
+            font-size: 1rem;
+            font-style: normal; 
+        }
+
+        .cardContainer {
+            padding-left: 8rem;
+        }
+
+        #card {
+            border-radius: 10px;
+        }
+
+        .card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 1rem;
+            width: 15rem;
+        }
+
+
+        .card-body i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            padding: 0.5rem 0;
+            padding-right: 2rem;
+            padding-left: 15%;
+            font-size: 0.7rem;
+        }
+    </style>
 </head>
 <body>
     {% include 'topPage/index.html' %}
@@ -39,7 +97,7 @@
             <!-- Card 2 -->
             <div id="card2" class="card bg-white text-dark mb-3">
                 <div class="card-body">
-                    <a href="{% url 'searchSocio' %}" class="text-dark" style="text-decoration: none;"> 
+                    <a href="{% url 'searchProjeto' %}" class="text-dark" style="text-decoration: none;"> 
                         <i class="fas fa-folder-open"></i>  
                         <p class="card-text">Acompanhar Projeto</p>
                     </a>
@@ -48,8 +106,10 @@
             <!-- Card 3 -->
             <div id="card3" class="card bg-width text-dark mb-3">
                 <div class="card-body">
-                    <i class="fas fa-clock"></i>
-                    <p class="card-text">Mensalidades</p>
+                    <a href="{% url 'mensalidades' %}" class="text-dark" style="text-decoration: none;"> 
+                        <i class="fas fa-clock"></i>
+                        <p class="card-text">Mensalidades</p>
+                    </a>
                 </div>
             </div>
         </div>
@@ -75,12 +135,34 @@
                 localStorage.setItem('lastClickedItem', 'socio');
             });
 
+            // Adiciona um evento de clique ao segundo card
+            $('#card2').click(function() {
+                // Remove a classe 'activate' de todos os itens de menu
+                $('.sidebar a').removeClass('activate');
+                // Adiciona a classe 'activate' ao item 'Projeto' e ao submenu 'Acompanhar'
+                $('#projetos').addClass('activate');
+                $('#submenu-projetos').addClass('activate');
+                // Salva o último item clicado no armazenamento local
+                localStorage.setItem('lastClickedItem', 'projetos');
+            });
+
+            $('#card3').click(function() {
+                // Remove a classe 'activate' de todos os itens de menu
+                $('.sidebar a').removeClass('activate');
+                // Adiciona a classe 'activate' ao item 'Projeto' e ao submenu 'Acompanhar'
+                $('#mensalidade').addClass('activate');
+                $('#submenu-mensalidade').addClass('activate');
+                // Salva o último item clicado no armazenamento local
+                localStorage.setItem('lastClickedItem', 'mensalidade');
+            });
+
             // Define o item de menu ativo com base no armazenamento local
             var lastClickedItem = localStorage.getItem('lastClickedItem');
             if (lastClickedItem) {
                 $('#' + lastClickedItem).addClass('activate');
                 $('#submenu-' + lastClickedItem).addClass('activate');
             }
+        
         });
     </script>
 </body>
