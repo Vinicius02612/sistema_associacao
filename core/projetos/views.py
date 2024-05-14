@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def addProjeto(request):
+    return render(request, 'socios/addProjeto/index.html')

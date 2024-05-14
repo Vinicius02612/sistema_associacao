@@ -9,13 +9,12 @@
   <meta name="description" content="">
   <meta name="author" content="">
   {% load bootstrap5 %}
-  {% load bootstrap5 %}
-    {# Load CSS and JavaScript #}
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
-
-    {# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
+  {# Load CSS and JavaScript #}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <link rel="stylesheet" href="{% static 'socios/socios/socios.css' %}">
+  {# Display django.contrib.messages as Bootstrap alerts #}
+  {% bootstrap_messages %}
   <title>AQBA</title>
 
   <!-- Bootstrap core CSS -->
@@ -25,16 +24,9 @@
 
 <body>
     <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-    <div class="container">
-      <a class="navbar-brand" >AQBA</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      
-    </div>
-  </nav>
+  {% include "partials/header.html" %}
+  {% include "partials/menu.html" %}
+
 
   <!-- Page Content -->
   <div class="container">
