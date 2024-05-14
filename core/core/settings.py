@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "accounts",
     "home",
     "socios",
-    "projetos",
+    "projeto",
 ]
 
 MIDDLEWARE = [
