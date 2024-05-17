@@ -1,21 +1,23 @@
 
+{% load static %}
 
 <div id="mySidebar" class="sidebar">
-    <a href="" id="inicio" class="activate"><i class="fas fa-home"></i> Inicio</a>
+    <a href="{% url 'pageadmin:page'%}" id="inicio" class="activate"><i class="fas fa-home"></i> Inicio</a>
     <a href="#" id="socio" class="submenu-toggle"><i class="far fa-user"></i> Sócio <i id="icon" class="fas fa-chevron-right"></i></a>
     <div id="submenu-socio" class="submenu pl-4" style="display:none;">
-        <a href="" class="submenu-item"><i class="fas fa-plus"></i> Adicionar</a>
+        <a href="{% url 'socios:socios'%}" class="submenu-item"><i class="fas fa-plus"></i> Adicionar</a>
         <a href="" class="submenu-item"><i class="fas fa-spinner"></i> Buscar</a>
     </div>
     <a href="#" id="projetos"><i class="fas fa-folder-open"></i> Projetos <i id="icon" class="fas fa-chevron-right"></i></a>
     <div id="submenu-projetos" class="submenu pl-4" style="display:none;">
         <a href="" class="submenu-item"><i class="fas fa-plus"></i> Adicionar</a>
-        <a href="#" class="submenu-item"><i class="far fa-folder-open"></i> Atualizar</a>
+        <a href="" class="submenu-item"><i class="far fa-folder-open"></i> Atualizar</a>
     </div>
     <a href="#" id="mensalidade"><i class="far fa-credit-card"></i> Mensalidades <i id="icon" class="fas fa-chevron-right"></i></a>
     <div id="submenu-mensalidade" class="submenu pl-4" style="display:none;">
-        <a href="#" class="submenu-item"><i class="fas fa-plus"></i> Adicionar</a>
-        <a href="#" class="submenu-item"><i class="far fa-credit-card"></i> Atualizar</a>
+        <a href="" class="submenu-item"><i class="fas fa-plus"></i> Acompanhar</a>
     </div>
-</div>
+  </div>
+
+
   

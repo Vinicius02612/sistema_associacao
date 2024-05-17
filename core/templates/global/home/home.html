@@ -14,7 +14,6 @@
   {% bootstrap_javascript %}
   <link rel="stylesheet" href="{% static 'socios/socios/socios.css' %}">
   {# Display django.contrib.messages as Bootstrap alerts #}
-  {% bootstrap_messages %}
   <title>AQBA</title>
 
   <!-- Bootstrap core CSS -->
@@ -24,9 +23,7 @@
 
 <body>
     <!-- Navigation -->
-
-  {% include "partials/menu.html" %}
-
+  {% include "global/partials/header.html" %}
 
   <!-- Page Content -->
   <div class="container">

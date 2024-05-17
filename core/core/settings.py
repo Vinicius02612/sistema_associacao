@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "homepage",
     "socios",
     "projeto",
+    "pageadmin",
 ]
 
 MIDDLEWARE = [

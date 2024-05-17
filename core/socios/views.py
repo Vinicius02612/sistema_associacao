@@ -3,11 +3,9 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render
 
-def homePage(request):
-    return render(request, 'socios/home_socios.html', {})
+def pageSocio(request):
+    return render(request, 'admin/socios/socios.html', {})
 
-def addSocio(request):
-    return render(request, 'socios/add_socios.html')
 
 def searchSocio(request):
     socios = [
