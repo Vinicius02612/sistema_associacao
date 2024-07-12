@@ -127,9 +127,9 @@ $(document).ready(function() {
         $('#alerta').removeClass('show');
       }, 4000);
     });
-  });
+});
 
-  $(document).ready(function() {
+$(document).ready(function() {
     // Adiciona um evento de clique ao primeiro card
     $('#card1').click(function() {
         // Remove a classe 'activate' de todos os itens de menu
@@ -146,5 +146,48 @@ $(document).ready(function() {
     if (lastClickedItem) {
         $('#' + lastClickedItem).addClass('activate');
         $('#submenu-' + lastClickedItem).addClass('activate');
+    }
+});
+
+$(document).on('click', '.btn-atualizar', function() {
+    var row = $(this).closest('tr');
+    row.find('td:not(:last-child)').prop('contenteditable', true);
+    $(this).text('Salvar').removeClass('btn-primary').addClass('btn-success').removeClass('btn-atualizar').addClass('btn-salvar');
+    
+    row.find('td:not(:last-child)').on('input', function() {
+      $(this).addClass('edited');
+    });
+  });
+
+$(document).on('click', '.btn-salvar', function() {
+    var row = $(this).closest('tr');
+    row.find('td').prop('contenteditable', false);
+    $(this).text('Atualizar').removeClass('btn-success').addClass('btn-primary').removeClass('btn-salvar').addClass('btn-atualizar');
+    
+    if (row.find('.edited').length > 0) {
+      $('#alert-text').text('Alterações salvas com sucesso!');
+      $('#alerta').removeClass('alert-warning').addClass('alert-success').removeClass('fade');
+    } else {
+      $('#alert-text').text('Nenhuma alteração foi feita!');
+      $('#alerta').removeClass('alert-success').addClass('alert-warning').removeClass('fade');
+    }
+    
+    row.find('td').removeClass('edited').off('input');
+    
+    setTimeout(function() {
+      $('#alerta').addClass('fade');
+    }, 4000);
+});
+
+$(document).on('click', '.btn-remover', function() {
+    var row = $(this).closest('tr');
+    var nome = row.find('td:eq(0)').text(); // obtém o nome do sócio
+    if (confirm("Tem certeza que deseja remover o sócio '" + nome + "'?")) {
+      row.remove(); // remove a linha da tabela
+      $('#alert-text').text('Sócio removido com sucesso!');
+      $('#alerta').removeClass('alert-warning').addClass('alert-success').removeClass('fade');
+      setTimeout(function() {
+        $('#alerta').addClass('fade');
+      }, 4000);
     }
 });

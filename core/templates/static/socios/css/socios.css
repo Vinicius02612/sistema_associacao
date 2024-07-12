@@ -61,3 +61,78 @@ input[type="select"] {
 }
   
 
+/* Buscar socios */
+.add-container {
+    margin: 0 auto;
+    padding-left: 12rem;
+    padding-top: 7.5rem;
+  }
+  .add-container nav {
+    width: 81%;
+  }
+  body .search {
+    margin-left: 7.1rem;
+    width: 97%;
+  }
+  .search p {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    font-size: small;
+    color: rgba(0, 0, 0, 0.504);
+  }
+  #form-contr {
+    border-radius: 6px;
+    width: 75%;
+  }
+  #buttonSearch {
+    border-radius: 6px;
+    background-color: #1D271A;
+    margin-left: 2rem;
+    padding: 0 2rem;
+  }
+  .table thead th {
+    text-align: center;
+    background-color: #1D271A;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: normal;
+  }
+  .table thead th:nth-child(1) {
+    width: 20%;
+  }
+/*   .table thead th:nth-child(4, 7) {
+    width: 13.28%; 
+  }
+  
+  .table thead th:nth-child(n+2):not(:nth-child(4, 7)) {
+    width: 11.43%; 
+  } */
+  .table tbody td {
+    text-align: center;
+  }
+  .table tbody tr:nth-child(even) {
+    background-color: white;
+  }
+  
+  .table tbody tr:nth-child(odd) {
+    background-color: #fafafa10;
+  }
+  #action {
+    font-size: 0.5rem;
+    font-weight: bold;
+  }
+  
+  body {
+    padding-bottom: 5rem;
+  }
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5rem 0;
+    padding-right: 2rem;
+    padding-left: 15%;
+    font-size: 0.7rem;
+  }

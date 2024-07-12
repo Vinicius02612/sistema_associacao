@@ -127,6 +127,7 @@ STATICFILES_DIRS = [
     BASE_DIR /"templates/static",
 ]
 
+# Caminho de arquivos de media
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL =  '/media/'
 

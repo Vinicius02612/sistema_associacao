@@ -7,8 +7,7 @@ class AdminCargo(admin.ModelAdmin):
 class SociosAdmin(admin.ModelAdmin):
     
     list_display = ('id',
-                    'nome',
-                    'sobrenome',
+                    'nomeCompleto',
                     'cpf',
                     'dataNascimento',
                     'sexo',
