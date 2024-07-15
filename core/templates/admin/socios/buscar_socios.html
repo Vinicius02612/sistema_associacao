@@ -44,10 +44,10 @@
         {% include "admin/partials/path.html" %}
       <div class="container p-0 mb-5">
         <div class="search mt-5">
-          <p>Digite o nome ou  CPF do sócio</p>
+          <p>Digite o nome sócio</p>
           <form action="{% url 'socios:BuscarSocio' %}" method="get">
             <div class="input-group mb-3">
-              <input id="form-contr" type="search" name="termo"  class="form-control" placeholder="Ex: 000.000.000-00">
+              <input id="form-contr" type="search" name="termo"  class="form-control" placeholder="Ex: Maria ">
               <div class="input-group-append">
                 <button id="buttonSearch" class="btn btn-success" type="submit">Buscar</button>
               </div>
