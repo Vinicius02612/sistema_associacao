@@ -15,7 +15,6 @@ def login(request):
         user = request.POST.get('user')
         password = request.POST.get('password')
         user = auth.authenticate(request, username=user,password=password)
-        print(user)
         if not user:
             messages.error(request, 'Usuário ou senha inválida, tente novamente!')
             return render(request, path)
@@ -33,5 +32,5 @@ def account(request):
 
 
 def logout(request):
- 
-    return redirect('index')
+    path = "accounts/login.html"
+    return render(request,path)
