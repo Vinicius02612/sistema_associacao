@@ -3,6 +3,9 @@ from django.contrib import messages
 from .models import Cargo, Socio
 from django.db.models.functions import Concat
 from django.db.models import Q, Value
+from .forms import SocioForm
+
+
 def pageSocio(request):
     return render(request, 'admin/socios/socios.html')
 
@@ -64,3 +67,8 @@ def searchSocio(request):
 
     return render(request, 'admin/socios/buscar_socios.html',{'socios':socio})
 
+def update_socios(request, id):
+    formSocio = SocioForm
+    
+    return render(request, 'admin/socios/edita_socio.html', {'socioForms':formSocio})
+    

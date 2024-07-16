@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.pageSocio, name='socios'),
     path('add_socio/', views.addPartners, name='add_socio'),
     path('search_socio/', views.searchSocio, name='BuscarSocio'),
+    path('edit_socio/<int:id>/edit', views.update_socios, name='editSocio'),
 ]
