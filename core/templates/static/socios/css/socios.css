@@ -126,13 +126,3 @@ input[type="select"] {
   body {
     padding-bottom: 5rem;
   }
-  .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    padding: 0.5rem 0;
-    padding-right: 2rem;
-    padding-left: 15%;
-    font-size: 0.7rem;
-  }

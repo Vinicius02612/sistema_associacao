@@ -1,0 +1,52 @@
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5rem 0;
+    padding-right: 2rem;
+    padding-left: 15%;
+    font-size: 0.7rem;
+  }
+  .add-container {
+    margin: 0 auto;
+    padding-left: 12rem;
+    padding-top: 11rem;
+  }
+  .add-container nav {
+    width: 80%;
+  }
+
+  body .row {
+    margin-left: 7.1rem;
+    width: 97%;
+    background-color: white;
+    padding: 1rem 0.5rem;
+  }
+  input[type="text"] {
+    background-color: #d9d9d953; 
+  }
+  #tituloProjeto {
+    width: 31rem;
+  }
+  #instituicao {
+    width: 31rem;
+  }
+  #rg {
+    width: 15rem; 
+  }
+  #pdf {
+    width: 15rem; 
+  }
+  #data {
+    width: 14rem;
+  }
+  #cargo {
+    width: 14rem;
+  }
+  .custom-file-upload {
+    border: 1px solid #ccc;
+    display: block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
