@@ -1,0 +1,21 @@
+{%  extends 'base.html'%}
+{% load bootstrap5 %}
+{% load bootstrap5 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+{% block conteudo%}
+<h1>Cadastro</h1>
+
+{# Display a form #}
+<div class="container">
+    <form action="" method="post" class="form  ">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+{% endblock %}
