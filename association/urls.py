@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import homePage, addSocio, searchSocio, addProjeto, searchProjeto, mensalidades
+from .views import homePage, addSocio, searchSocio, addProjeto, searchProjeto, mensalidades, landingpage
 
 
 urlpatterns = [
@@ -26,5 +26,6 @@ urlpatterns = [
     path('searchSocio/', searchSocio, name='searchSocio'),
     path('addProjeto/', addProjeto, name='addProjeto'),
     path('searchProjeto/', searchProjeto, name='searchProjeto'),
-    path('mensalidades/', mensalidades, name='mensalidades')
+    path('mensalidades/', mensalidades, name='mensalidades'),
+    path('landingpage/', landingpage, name='landingpage')
 ]

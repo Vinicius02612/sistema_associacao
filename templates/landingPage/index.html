@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
+  <title>Landing Page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    .navbar {
+      background-color: transparent;
+    }
+    .btn-entrar {
+      background-color: green;
+      color: white;
+      margin-right: 3rem;
+    }
+    .nav-item {
+      padding-left: 1rem;
+      padding-right: 1rem; 
+    }
+    .navbar.navbar-expand-lg.navbar-light .navbar-nav.mx-auto .nav-item .nav-link {
+      color: white;
+    }
+    .navbar-brand {
+      margin-left: 3rem;
+    }
+    .home {
+      background-image: url('../../static/img/Rectangle.png'); 
+      background-position: center center;
+      height: 100vh;
+    }
+    .homepage {
+      color: white;
+      text-align: center;
+    }
+    .texto-comunidade {
+      margin-top: 2rem;
+      margin-bottom: 3rem; 
+    }
+    .btn-conhecer {
+      padding: 0.3rem 3rem;
+      font-size: 1rem;
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.5); 
+      color: white;
+      border-radius: 5rem;
+    }
+    .full-height {
+      height: 100vh;
+    }
+    .btn:hover, .btn:focus {
+      color: white;
+    }
+    .sobre {
+      width: 100%;
+      height: 100vh;
+      padding: 2rem 0;
+    }
+    .sobre-texto {
+      text-align: center;
+    }
+    .container {
+      padding: 3rem 0;
+      max-width: 50%;
+    }
+    .container h2 {
+      padding-bottom: 2rem;
+    }
+    .container-img {
+      padding: 3rem 0;
+      max-width: 50%;
+    }
+    .img-fluid {
+      width: 100%;
+      height: 100%; 
+      object-fit: cover; 
+      padding: 0.3rem; 
+    }
+    .row {
+      padding: 0.3rem; 
+    }
+    @media (max-width: 800px) {
+      .texto-comunidade {
+        margin-top: 0;
+        margin-bottom: 0; 
+      }
+      .navbar-collapse {
+        position: absolute; 
+        top: 0;
+        left: 0;
+        padding: 1rem;
+        padding-top: 5rem;
+      }
+    }
+    @media (max-width: 700px) {
+      .navbar-toggler {
+        order: 1;
+      }
+      .navbar-brand {
+        order: 2;
+      }
+      .form-inline {
+        order: 3;
+      }
+      .navbar-collapse {
+        order: 4;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section id="home" class="home">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="#">
+        <img src="{% static 'img/Group.png' %}" style="height: 3rem;" alt="Logo da associacao">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#home">Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#sobre">Quem somos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Eventos culturais</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Projetos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contato</a>
+          </li>
+        </ul>
+      </div>
+      <div class="form-inline">
+        <button class="btn btn-entrar" type="button">Entrar</button>
+      </div>
+    </nav>
+    <div class="container-fluid full-height d-flex justify-content-center align-items-center">
+      <div class="homepage">
+        <h1 class="texto-comunidade">COMUNIDADE QUILOMBOLA BREJÃO DOS AIPINS</h1>
+        <button class="btn btn-conhecer" type="button">Conheça nossa comunidade</button>
+      </div>
+    </div>
+  </section>
+  <section id="sobre" class="sobre">
+    <!-- Layout para telas maiores que 800px -->
+    <div class="d-none d-lg-block">
+      <div class="row w-100">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+              <h2>Sobre a Comunidade</h2>
+              <p style="text-align: justify;">Bem-vindo à Comunidade Quilombola Brejão dos Aipins, um grupo resiliente com raízes profundas na história do Brasil. Nossa comunidade é um testemunho vivo da resistência e da força do povo quilombola, que lutou contra a opressão e a escravidão para preservar sua liberdade e cultura.</p>
+            </div>
+          </div>
+        </div>
+        <div class="container container-img">
+          <div class="row justify-content-center">
+            <div class="col-6 col-md-3">
+              <img src="../static/img/quilombo1.jpg" alt="Imagem 1" class="img-fluid">
+            </div>
+            <div class="col-6 col-md-3">
+              <img src="../static/img/quilombo2.jpg" alt="Imagem 2" class="img-fluid">
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-6 col-md-3">
+              <img src="../static/img/quilombo3.jpg" alt="Imagem 3" class="img-fluid">
+            </div>
+            <div class="col-6 col-md-3">
+              <img src="../static/img/quilombo4.jpg" alt="Imagem 4" class="img-fluid">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row w-100">
+        <div class="container container-img">
+          <div class="row justify-content-center">
+            <div class="col-6 col-md-3">
+              <img src="../static/img/quilombo1.jpg" alt="Imagem 1" class="img-fluid">
+            </div>
+            <div class="col-6 col-md-3">
+              <img src="../static/img/quilombo2.jpg" alt="Imagem 2" class="img-fluid">
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-6 col-md-3">
+              <img src="../static/img/quilombo3.jpg" alt="Imagem 3" class="img-fluid">
+            </div>
+            <div class="col-6 col-md-3">
+              <img src="../static/img/quilombo4.jpg" alt="Imagem 4" class="img-fluid">
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+              <h2>Sobre a Associação</h2>
+              <p style="text-align: justify;">Bem-vindo à Comunidade Quilombola Brejão dos Aipins, um grupo resiliente com raízes profundas na história do Brasil. Nossa comunidade é um testemunho vivo da resistência e da força do povo quilombola, que lutou contra a opressão e a escravidão para preservar sua liberdade e cultura.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Layout para telas menores que 800px -->
+    <div class="container">
+      <div class="d-lg-none">
+        <div class="row">
+          <div class="col-12 text-center">
+            <h2>Sobre a Comunidade</h2>
+            <p style="text-align: justify;">
+              Bem-vindo à Comunidade Quilombola Brejão dos Aipins, um grupo resiliente com raízes profundas na história do Brasil. Nossa comunidade é um testemunho vivo da resistência e da força do povo quilombola, que lutou contra a opressão e a escravidão para preservar sua liberdade e cultura.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <img src="../static/img/quilombo1.jpg" alt="Imagem 1" class="img-fluid">
+          </div>
+          <div class="col-6">
+            <img src="../static/img/quilombo2.jpg" alt="Imagem 2" class="img-fluid">
+          </div>
+          <div class="col-6">
+            <img src="../static/img/quilombo3.jpg" alt="Imagem 3" class="img-fluid">
+          </div>
+          <div class="col-6">
+            <img src="../static/img/quilombo4.jpg" alt="Imagem 4" class="img-fluid">
+          </div>
+        </div>
+  
+        <div class="row mt-4">
+          <div class="col-12 text-center">
+            <h2>Sobre a Associação</h2>
+            <p style="text-align: justify;">
+              Bem-vindo à Comunidade Quilombola Brejão dos Aipins, um grupo resiliente com raízes profundas na história do Brasil. Nossa comunidade é um testemunho vivo da resistência e da força do povo quilombola, que lutou contra a opressão e a escravidão para preservar sua liberdade e cultura.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <img src="../static/img/quilombo1.jpg" alt="Imagem 1" class="img-fluid">
+          </div>
+          <div class="col-6">
+            <img src="../static/img/quilombo2.jpg" alt="Imagem 2" class="img-fluid">
+          </div>
+          <div class="col-6">
+            <img src="../static/img/quilombo3.jpg" alt="Imagem 3" class="img-fluid">
+          </div>
+          <div class="col-6">
+            <img src="../static/img/quilombo4.jpg" alt="Imagem 4" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    document.querySelector('.navbar-toggler').addEventListener('click', function() {
+      console.log('Clicou no botão de toggle');
+    });
+    // Fechar o menu ao clicar em um item do menu
+    document.querySelectorAll('.navbar-nav .nav-link').forEach(item => {
+      item.addEventListener('click', () => {
+        if (window.innerWidth < 800) {
+          console.log('Clicou em um item do menu');
+          document.querySelector('.navbar-collapse').classList.remove('show');
+        }
+      });
+    });
+
+    // Fechar o menu ao clicar fora dele (para melhorar a experiência do usuário)
+    document.addEventListener('click', function(event) {
+      var isClickInsideNavbar = document.querySelector('.navbar').contains(event.target);
+      if (!isClickInsideNavbar && window.innerWidth < 800) {
+        console.log('Clicou fora do menu');
+        document.querySelector('.navbar-collapse').classList.remove('show');
+      }
+    });
+  </script>
+  <!-- Scripts do Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

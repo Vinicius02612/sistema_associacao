@@ -46,3 +46,7 @@ def mensalidades(request):
        
     ]
     return render(request, 'mensalidades/index.html', {'mensalidades': mensalidades})
+
+
+def landingpage(request):
+    return render(request, 'landingPage/index.html')
