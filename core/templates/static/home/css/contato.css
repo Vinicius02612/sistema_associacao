@@ -1,0 +1,146 @@
+.contact {
+  background-color: #33363F;
+  color: white;
+  padding: 1.25rem 0;
+  text-align: center;
+}
+
+.contact-section {
+  margin-bottom: 1.25rem;
+}
+
+.contact-section h2 {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 2rem; 
+}
+
+.contact-content {
+  display: flex;
+  flex-direction: row; 
+  align-items: start;
+  justify-content: space-between; 
+  width: 80%;
+  gap: 3rem;
+}
+
+.contact-info, form {
+  width: 80%;
+  margin-top: 2rem;
+}
+
+.contact-info p {
+  margin: 0 auto;
+  max-width: 15rem; 
+  text-align: left;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 20rem;
+}
+
+form label {
+  align-self: flex-start;
+  margin-top: 0.625rem;
+  margin-bottom: 0.3125rem; 
+}
+
+form input {
+  width: 100%;
+  padding: 0.625rem;
+  margin-bottom: 0.625rem; 
+  border: none;
+  border-radius: 0.3125rem; 
+}
+
+form button {
+  padding: 0.5rem 1.5rem;
+  background-color: #28a745; 
+  color: white;
+  border: none;
+  border-radius: 0.3125rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+form button:hover {
+  background-color: #218838; 
+}
+
+.footer-bottom {
+  display: flex; 
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  padding: 1rem;
+  color: white
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+.footer-contacts {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+  max-width: 700px;
+}
+
+.footer-contacts span {
+  color: white;
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.footer-contacts i {
+  padding-right: 0.5rem;
+  display: flex; 
+  align-items: center;
+  color: #00bfff;
+}
+
+@media screen and (max-width: 1200px) {
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem 0;
+  }
+
+  .footer-contacts {
+    flex-direction: column;
+    align-items: center;
+    max-width: none;
+    margin-top: 1rem;
+  }
+
+  .footer-contacts span {
+    margin: 0.5rem 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .contact-content {
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; 
+  }
+
+  .contact-info, form {
+    width: 80%; 
+    max-width: 100%; 
+    margin: 0 auto;
+  }
+
+  .contact-info {
+    margin-bottom: 1rem;
+  }
+}
