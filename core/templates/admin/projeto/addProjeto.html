@@ -1,37 +1,53 @@
-
-{% extends "admin/home/home.html" %}
+{% extends 'admin/home/home.html' %}
 {% block conteudo %}
-    <!-- Novo container -->
+  {% load bootstrap5 %}
+  {# Load CSS and JavaScript #}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <!-- Novo container -->
+  <form class="form" action="{% url 'projeto:AdcionarProjeto' %}" method="POST">
+    {% csrf_token %}
+    {% for field in form %}{% endfor %}
     <div class="container">
       <div class="row">
         <div class="col">
           <label for="tituloProjeto">Titulo do Projeto</label>
-          <input type="text" class="form-control" id="tituloProjeto" placeholder="Ex: Projeto feira">
+          <input type="text" class="form-control" name="title_project" id="tituloProjeto" placeholder="Ex: Projeto feira" />
         </div>
         <div class="col">
           <label for="instituicao">Nome da instituição/empresa</label>
-          <input type="text" class="form-control" id="instituicao" placeholder="Ex: UFPI">
+          <input type="text" class="form-control" name="name_instituty" id="instituicao" placeholder="Ex: UFPI" />
         </div>
       </div>
-      <div class="row"> 
+      <div class="row">
         <div class="col">
           <label for="pdf">Documentação do Projeto</label>
           <div class="custom-file-upload" onclick="document.getElementById('pdf').click();">
             <i class="fas fa-file-pdf"></i> <span id="file-name">Escolher PDF</span>
-            <input type="file" id="pdf" accept=".pdf" style="display: none;" onchange="document.getElementById('file-name').innerText = this.files[0].name;">
+            <input type="file" id="pdf" name="document_project" accept=".pdf" style="display: none;" onchange="document.getElementById('file-name').innerText = this.files[0].name;" />
           </div>
-        </div>  
+        </div>
         <div class="col">
-          <label for="rg">CNPJ</label>
-          <input type="text" class="form-control RG" id="rg" placeholder="00.000.000/0001-00">
-        </div>      
+          <label for="rg">CNPJ da Instituição</label>
+          <input type="text" class="form-control" name="cnpj_user" id="rg" placeholder="00.000.000/0000-00" />
+        </div>
         <div class="col">
           <label for="data">Data de Inicio</label>
-          <input type="date" class="form-control" id="data">
+          <input type="date" class="form-control" name="date_begin" id="data" />
         </div>
         <div class="col">
           <label for="data">Datade Fim</label>
-          <input type="date" class="form-control" id="data">
+          <input type="date" class="form-control" name="date_end" id="data" />
+        </div>
+        <div class="col mt-4">
+          <label for="cargo">Categoria</label>
+          <select class="form-control" id="categoria" name="categoria">
+            <option value="">Selecione uma categoria</option>
+            <option value="cultura">CULTURA</option>
+            <option value="esportes">ESPORTES</option>
+            <option value="projeto de pesquisa">PROJETOS DE PESQUISA</option>
+            <option value="projeto social">PROJETO SOCIAL</option>
+          </select>
         </div>
       </div>
       <div class="row">
@@ -42,15 +58,11 @@
           <button class="btn btn-success" id="cadastrar">Cadastrar</button>
         </div>
       </div>
-      
+
       <!-- Alerta fora da estrutura do grid -->
-      <div class="alert alert-success alert-dismissible fade" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; background-color: #0B7A2D; color: white; height: auto;">
-        Projeto cadastrado com sucesso
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
+      <div class="alert alert-dismissible" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; height: auto;">
+        {% bootstrap_messages %}
       </div>
-    
-      
     </div>
-{% endblock conteudo %}
+  </form>
+{% endblock %}

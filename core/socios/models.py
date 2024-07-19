@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 
@@ -14,7 +15,7 @@ class Socio(models.Model):
     dataNascimento = models.DateField(verbose_name="Data de Nascimento", blank=False)
     sexo = models.CharField(verbose_name="Sexo", max_length=10, blank=False,null=False)
     registro = models.CharField(verbose_name="RG", max_length=11, blank=False,null=False)
-    arq_autoDeclaracao = models.FileField(verbose_name="Auto Declaração",upload_to="declaracoes",null=False)
+    arq_autoDeclaracao = models.FileField(verbose_name="Auto Declaração",upload_to="socios",null=False)
     atividade_agr =  models.CharField(verbose_name="Mantem atividade agricola na comunidade", max_length=4,null=False, blank=False)
     quantidade_pessoa = models.IntegerField(verbose_name="Quantidade de pessoas na familia", blank=False)
     cargo = models.ForeignKey(Cargo, verbose_name="Cargo", on_delete=models.DO_NOTHING,null=False)
@@ -26,7 +27,7 @@ class Socio(models.Model):
 class Mensalidade(models.Model):
     nome_socio = models.ForeignKey(Socio,on_delete=models.CASCADE)
     descricao = models.CharField(verbose_name="Descrição", max_length=50, blank=False,null=False, default="Mensalidade")
-    valor = models.FloatField(verbose_name="Valor", blank=False,null=False)
-    reference_data = models.DateField(verbose_name="Mês de cobrança",blank=False,null=False)
-    data_validade = models.DateField(verbose_name="Mês de Vencimento",default=False, blank=False,null=False)
-    status = models.BooleanField(verbose_name='Status', default=False,null=False)
+    valor = models.FloatField(verbose_name="Valor", blank=False,null=False, default=5.00)
+    reference_data = models.DateField(verbose_name="Mês de cobrança",blank=False,null=False,default=datetime.now)
+    data_validade = models.DateField(verbose_name="Mês de Vencimento", blank=False,null=False,default=datetime.now)
+    status = models.BooleanField(verbose_name='Status',null=False, default=True)

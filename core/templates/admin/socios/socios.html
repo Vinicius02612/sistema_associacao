@@ -1,95 +1,90 @@
-  <!-- Novo container -->
+<!-- Novo container -->
+{% extends 'admin/home/home.html' %}
+{% block conteudo %}
+  {% load bootstrap5 %}
+  {# Load CSS and JavaScript #}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
 
-{% extends "admin/home/home.html" %}
+  
 
-
-{%block conteudo%}
-      <form class="forms-socios" action="{% url 'socios:add_socio' %}" method="post">
-        {% csrf_token %}
-        <div class="container">
-            <div class="row">
-              <div class="col">
-                <label for="nomeCompleto">Nome completo</label>
-                <input type="text" class="form-control" name="nomeCompleto" id="nomeCompleto" placeholder="Digite o nome completo">
-              </div>
-              <div class="col">
-                <label for="carteiraTrabalho">CPF ou Carteira de trabalho</label>
-                <input type="text" name="cpf" class="form-control" id="carteiraTrabalho" placeholder="Ex: 000.000.000-00">
-              </div>
-              <div class="col">
-                <label for="sexo">Sexo</label><br>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="sexo" id="masculino" value="masculino">
-                  <label class="form-check-label" for="masculino">Masculino</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="sexo" id="feminino" value="feminino">
-                  <label class="form-check-label" for="feminino">Feminino</label>
-                </div>
-              </div>
-            </div>
-            <div class="row"> 
-              <div class="col">
-                <label for="rg">RG</label>
-                <input type="text" class="form-control RG" name="rg" id="rg" placeholder="Digite o RG">
-              </div>
-              <div class="col">
-                <label for="pdf">Documento de Autodeclaração</label>
-                <div class="custom-file-upload" onclick="document.getElementById('pdf').click();">
-                  <i class="fas fa-file-pdf"></i> <span id="file-name">Escolher PDF</span>
-                  <input type="file" id="pdf" name="declaracao" accept=".pdf" style="display: none;" onchange="document.getElementById('file-name').innerText = this.files[0].name;">
-                </div>
-              </div>        
-              <div class="col">
-                <label for="data">Data de Nascimento</label>
-                <input type="date" name="dataNascimento" class="form-control" id="data">
-              </div>
-              <div class="col">
-                <label for="cargo">Cargo</label>
-                <select class="form-control" id="cargo" name="cargo">
-                  <option value="">Selecione um cargo</option>
-                  <option value="Associado">Associado</option>
-                  <option value="Secretario">Secretario</option>
-                  <option value="Tesoureiro">Tesoureiro</option>
-                  <option value="1 º Diretor">1 º Diretor</option>
-                  <option value="2 º Diretor">2 º Diretor</option>
-                  <option value="Fiscais">Fiscais</option>
-                  <option value="Suplentes">Suplentes</option>
-                </select>
-              </div>
-            </div>
-            <div class="row"> 
-              <div class="col">
-                <label for="atividade">Mantém atividade agrícola, artesanal ou cultural na comunidade?</label>
-                <select class="form-control" id="atividade" name="atividade">
-                  <option value="sim">Sim</option>
-                  <option value="nao">Não</option>
-                </select>
-              </div>
-              <div class="col familia">
-                <label for="familia">Quantidade de pessoas na família</label>
-                <input type="number" name="quantidadePfamilia" class="form-control" id="familia" placeholder="Digite a quantidade">
-              </div>
-            </div>
-            <div class="row">
-              <div class="linha-cinza" style="border-bottom: 1px solid #ccc; width: 96%; margin: auto;"></div>
-            </div>
-            <div class="row" style="padding: 1.5rem 0; padding-right: 1rem;">
-              <div class="col d-flex justify-content-end">
-                <button class="btn btn-success" type="submit" id="cadastrar">Cadastrar</button>
-              </div>
-            </div>
-            
-            
-          </div>
-    </form>
-      
-    </section>
-  </main>
- 
-</div>
-</div>
-
-
-{%endblock%}
-    
+  <form class="forms-socios" action="{% url 'socios:add_socio' %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col">
+        <label for="nomeCompleto">Nome completo</label>
+        <input type="text" class="form-control" name="nomeCompleto" id="nomeCompleto" placeholder="Digite o nome completo" />
+      </div>
+      <div class="col">
+        <label for="carteiraTrabalho">Informe o CPF</label>
+        <input type="text" name="cpf" class="form-control" id="carteiraTrabalho" placeholder="Ex: 000.000.000-00" />
+      </div>
+      <div class="col">
+        <label for="sexo">Sexo</label><br />
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="sexo" id="masculino" value="masculino" />
+          <label class="form-check-label" for="masculino">Masculino</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="sexo" id="feminino" value="feminino" />
+          <label class="form-check-label" for="feminino">Feminino</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="rg">RG</label>
+        <input type="text" class="form-control RG" name="rg" id="rg" placeholder="Digite o RG" />
+      </div>
+      <div class="col">
+        <label for="pdf">Documento de Autodeclaração</label>
+        <div class="custom-file-upload" onclick="document.getElementById('pdf').click();">
+          <i class="fas fa-file-pdf"></i> <span id="file-name">Escolher PDF</span>
+          <input type="file" id="pdf" name="declaracao" accept=".pdf" style="display: none;" onchange="document.getElementById('file-name').innerText = this.files[0].name;" />
+        </div>
+      </div>
+      <div class="col">
+        <label for="data">Data de Nascimento</label>
+        <input type="date" name="dataNascimento" class="form-control" id="data" />
+      </div>
+      <div class="col">
+        <label for="cargo">Cargo</label>
+        <select class="form-control" id="cargo" name="cargo">
+          <option value="">Selecione um cargo</option>
+          <option value="Associado">Associado</option>
+          <option value="Secretario">Secretario</option>
+          <option value="Tesoureiro">Tesoureiro</option>
+          <option value="1 º Diretor">1 º Diretor</option>
+          <option value="2 º Diretor">2 º Diretor</option>
+          <option value="Fiscais">Fiscais</option>
+          <option value="Suplentes">Suplentes</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="atividade">Mantém atividade agrícola, artesanal ou cultural na comunidade?</label>
+        <select class="form-control" id="atividade" name="atividade">
+          <option value="sim">Sim</option>
+          <option value="nao">Não</option>
+        </select>
+      </div>
+      <div class="col familia">
+        <label for="familia">Quantidade de pessoas na família</label>
+        <input type="number" name="quantidadePfamilia" class="form-control" id="familia" placeholder="Digite a quantidade" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="linha-cinza" style="border-bottom: 1px solid #ccc; width: 96%; margin: auto;"></div>
+    </div>
+    <div class="row" style="padding: 1.5rem 0; padding-right: 1rem;">
+      <div class="col d-flex justify-content-end">
+        <button class="btn btn-success" type="submit" id="cadastrar">Cadastrar</button>
+      </div>
+    </div>
+  </form>
+  <!-- Alerta fora da estrutura do grid -->
+  <div class="alert alert-dismissible" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; height: auto;">
+    {% bootstrap_messages %}
+  </div>
+{% endblock %}

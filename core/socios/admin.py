@@ -21,6 +21,17 @@ class SociosAdmin(admin.ModelAdmin):
 
     list_display_links = ('id',)
     search_fields = ('nome','cpf',)
+    list_editable = ('nomeCompleto',
+                    'cpf',
+                    'dataNascimento',
+                    'sexo',
+                    'registro',
+                    'arq_autoDeclaracao',
+                    'atividade_agr',
+                    'quantidade_pessoa',
+                    'cargo',
+                    'situacao'
+                )
 
 
 class AdminMensalidade(admin.ModelAdmin):

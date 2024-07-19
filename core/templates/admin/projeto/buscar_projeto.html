@@ -1,0 +1,59 @@
+
+{% extends "admin/home/home.html" %}
+{% block conteudo %}
+      <div class="search mt-5">
+        <h5>Buscar Projeto</h5>
+        <form action="{% url 'projeto:buscar-projeto' %}" method="get">
+          <div class="input-group mb-3">
+            <input id="form-contr" type="search" name="termo"  class="form-control" placeholder="Ex: UFPI ">
+            <div class="input-group-append">
+              <button id="buttonSearch" class="btn btn-success" type="submit">Buscar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="search  h-100 w-100">
+        <table id="tabela" class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Titulo do Projeto</th>
+              <th scope="col">Nome da Instituição</th>
+              <th scope="col">Documento</th>
+              <th scope="col">CNPJ</th>
+              <th scope="col">Data de Inicio</th>
+              <th scope="col">Data de Conclusão</th>
+              <th scope="col">Categoria </th>
+              <th scope="col">Situação Atual</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for projeto in projetos %}
+            <tr>
+            <td>{{projeto.titulo}}</td>
+             <td>{{projeto.nome_instituicao}}</td>
+              <td>{{projeto.cnpj}}</td>
+              <td>{{projeto.arquivo_projeto}}</td>
+              <td>a{{projeto.data_inicio}}</td>
+              <td>{{projeto.data_final}}</td>
+              <td> {{projeto.categoria}}</td>
+              <td>  
+                {% if projeto.status is False  %}
+                    ativo
+                {% else %}
+                    inativo
+                {% endif %} 
+             </td>
+              <td>
+                  <a href="" class=" btn btn-warning btn-sm"  id="editar">Editar</a>
+                  <a class=" btn btn-danger btn-sm"  id="remover">Remover</a>
+              </td>
+            </tr>
+            
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    <!-- Alerta fora da estrutura do grid -->
+{% endblock conteudo %}
+

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from django.contrib.messages import constants
+from django.forms import TextInput, NumberInput, EmailInput, URLInput, PasswordInput
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -60,7 +61,15 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
+""" FORM_WIDGETS = {
+    'CharField': TextInput(attrs={'class': 'form-control'}),
+    'IntegerField': NumberInput(attrs={'class': 'form-control'}),
+    'EmailField': EmailInput(attrs={'class': 'form-control'}),
+    'URLField': URLInput(attrs={'class': 'form-control'}),
+    'PasswordField': PasswordInput(attrs={'class': 'form-control'}),
+} """
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

@@ -13,10 +13,10 @@ class ProjetosAdmin(admin.ModelAdmin):
                     'titulo',
                     'nome_instituicao',
                     'arquivo_projeto',
+                    'cnpj',
                     'data_inicio',
                     'data_final',
                     'categoria',
-                    'participante',
                     'situacao',
                     )
 
