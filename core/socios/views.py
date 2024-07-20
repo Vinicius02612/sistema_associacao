@@ -53,8 +53,6 @@ def addPartners(request):
             )
             
             socios.save()
-            mensalidade = Mensalidade.objects.create(nomeCompleto=nome)
-            mensalidade.save()
             messages.success(request, "Socio cadastrado com sucesso!")
             return render(request, 'admin/socios/socios.html')
     return render(request, 'admin/socios/socios.html')
