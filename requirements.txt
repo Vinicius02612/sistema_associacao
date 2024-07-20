@@ -4,3 +4,6 @@ sqlparse==0.4.4
 typing_extensions==4.10.0
 psycopg2-binary==2.9.9 #adaptador de banco de dados PostgreSQL
 django-bootstrap-v5==1.0.11
+django-crispy-forms==2.3.0
+crispy_bootstrap5==0.1.0
+validate-docbr==1.10.0
