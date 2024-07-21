@@ -5,8 +5,12 @@ from validate_docbr import CPF
 from .forms import SocioForm
 
 
+
 def pageSocio(request):
     return render(request, 'admin/socios/socios.html')
+
+
+
 
 def addPartners(request):
     if request.method == 'POST':
@@ -51,8 +55,8 @@ def addPartners(request):
                 cargo=cargos,
                 situacao=status
             )
-            
             socios.save()
+
             messages.success(request, "Socio cadastrado com sucesso!")
             return render(request, 'admin/socios/socios.html')
     return render(request, 'admin/socios/socios.html')
@@ -73,26 +77,20 @@ def searchSocio(request):
 
     return render(request, 'admin/socios/buscar_socios.html',{'socios':socio})
 
-def update_socios(request, id):
 
+""" Criar view de editar socio com base no id do socio """
+def edit_socio(request, id):
     socio = get_object_or_404(Socio, id = id)
-    form_socio = SocioForm(request.POST)
-    if request.method == 'POST':
+    form = SocioForm(request.POST, instance=socio)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Socio atualizado com sucesso!")
+        return render(request, 'admin/socios/buscar_socios.html', {'form':form, 'socios':socio})
+    return render(request, 'admin/socios/edita_socio.html', {'form':form, 'socios':socio})
 
-        if(form_socio.is_valid()):
-            form_socio.save()
-            messages.success(request, "Socio atualizado com suecesso!")
-            return render(request, 'admin/socios/buscar_socios.html',{'form':form_socio, 'socios':socio })
-    return render(request, 'admin/socios/edita_socio.html', {'form':form_socio, 'socios':socio })
 
 
 def monthly_payment(request):
     monthly_payment = Mensalidade.objects.all()
 
-    search_payment_name = request.GET.get('termo')
-    if monthly_payment:
-        monthly_payment = Mensalidade.objects.filter(monthly_payment_icontains= search_payment_name)
-        if monthly_payment:
-            messages.success(request,"Mensaliade encontrada")
-            return render(request,  "admin/socios/mensalidade.html", {"payment":monthly_payment})
-    return render(request, "admin/socios/mensalidade.html")
+    return render(request,  "admin/socios/mensalidade.html", {"payment":monthly_payment})
