@@ -1,56 +1,64 @@
-from django import forms
+from django.forms import ModelForm
 from .models import Cargo, Socio, Mensalidade
-
+from validate_docbr import CPF
+from datetime import datetime
 # formulario de socios
-class SocioForm(forms.Form):
+class SocioForm(ModelForm):
     class Meta:
         model = Socio
-        fields = [
-            'nomeCompleto',
-            'cpf',
-            'dataNascimento',
-            'sexo', 
-            'registro',
-            'arq_autoDeclaracao',
-            'atividade_agr',
-            'quantidade_pessoa',
-            'cargo',
-            'situacao'
-        ]
-
-    nomeCompleto = forms.CharField(
-        max_length=100,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o nome completo'})
-    )
-    cpf = forms.CharField(
-        max_length=14,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: 000.000.000-00'})
-    )
+        fields = ['nomeCompleto','cpf','dataNascimento','sexo','registro','arq_autoDeclaracao','atividade_agr','quantidade_pessoa','cargo','situacao']
+        
+    def clean(self):
+        cleaned_data = super(SocioForm, self).clean()
+        cpf = cleaned_data.get('cpf')
+        _cpf = CPF()
+        if  _cpf.validate(cpf) is not True:
+            self.add_error('cpf', 'CPF inválido')
+        return cleaned_data
     
-    atividade_agr = forms.DateField(
-        widget=forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'dd/mm/aaaa', 'type': 'date'})
-    )
-    sexo = forms.ChoiceField(
-        choices=[('M', 'Masculino'), ('F', 'Feminino')],
-        widget=forms.RadioSelect(attrs={'class': 'form-check-input'})
-    )
-    registro = forms.CharField(
-        max_length=20,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o RG'})
-    )
-    arq_autoDeclaracao = forms.FileField(
-        widget=forms.FileInput(attrs={'class': 'form-control-file'})
-    )
+    def save(self, commit=True):
+        instance = super(SocioForm, self).save(commit=False)
+        instance.save()
+        mensalidade = Mensalidade.objects.create(nome_socio=instance)
+        mensalidade.save()
+        mensalidade.save_date_validate()
+        mensalidade.save_reference()
+        mensalidade.save_value()
+        mensalidade.save_status()
+        return instance
+    
+    def __init__(self, *args, **kwargs):
+        super(SocioForm, self).__init__(*args, **kwargs)
+        self.fields['cargo'].queryset = Cargo.objects.all()
+        self.fields['dataNascimento'].widget.attrs['type'] = 'date'
+        self.fields['arq_autoDeclaracao'].widget.attrs['accept'] = '.pdf'
+        self.fields['arq_autoDeclaracao'].widget.attrs['required'] = True
+        self.fields['arq_autoDeclaracao'].label = 'Auto Declaração'
+        self.fields['atividade_agr'].label = 'Mantem atividade agricola na comunidade'
+        self.fields['quantidade_pessoa'].label = 'Quantidade de pessoas na familia'
+        self.fields['cargo'].label = 'Cargo'
+        self.fields['situacao'].label = 'Situação Atual'
+        self.fields['nomeCompleto'].label = 'Nome'
+        self.fields['cpf'].label = 'CPF'
+        self.fields['dataNascimento'].label = 'Data de Nascimento'
+        self.fields['sexo'].label = 'Sexo'
+        self.fields['registro'].label = 'RG'
+        self.fields['arq_autoDeclaracao'].label = 'Auto Declaração'
+        self.fields['atividade_agr'].label = 'Mantem atividade agricola na comunidade'
+        self.fields['quantidade_pessoa'].label = 'Quantidade de pessoas na familia'
+        self.fields['cargo'].label = 'Cargo'
+        self.fields['situacao'].label = 'Situação Atual'
+        self.fields['nomeCompleto'].widget.attrs['class'] = 'form-control'
+        self.fields['cpf'].widget.attrs['class'] = 'form-control'
+        self.fields['dataNascimento'].widget.attrs['class'] = 'form-control'
+        self.fields['sexo'].widget.attrs['class'] = 'form-control'
+        self.fields['registro'].widget.attrs['class'] = 'form-control'
+        self.fields['arq_autoDeclaracao'].widget.attrs['class'] = 'form-control'
+        self.fields['atividade_agr'].widget.attrs['class'] = 'form-control'
+        self.fields['quantidade_pessoa'].widget.attrs['class'] = 'form-control'
+        self.fields['cargo'].widget.attrs['class'] = 'form-control'
+        self.fields['situacao'].widget.attrs['class'] = ' form-control'
 
-    cargo = forms.CharField(
-        max_length=100,
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
-    activity = forms.ChoiceField(
-        choices=[('yes', 'Sim'), ('no', 'Não')],
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
-    quantidade_pessoa = forms.IntegerField(
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Digite a quantidade'})
-    )
+    
 
+    
