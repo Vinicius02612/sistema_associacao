@@ -12,51 +12,12 @@
     {% bootstrap_messages %}
   </div>
   <h2>Editar Perfil</h2>
-  <div class="container mt-5">
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          {{ form.nomeCompleto }}</div>
-        <div class="form-group col-md-6">
-          {{ form.cpf }}</div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          {{ form.sexo.label_tag }}
-          <div>
-            {% for radio in form.sexo %}
-              <div class="form-check form-check-inline">{{ radio}}
-                {{ radio}}</div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          {{ form.registro }}</div>
-        <div class="form-group col-md-6">
-          {{ form.arq_autoDeclaracao }}</div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          {{ form.dataNascimento }}</div>
-        <div class="form-group col-md-6">
-          {{ form.cargo }}</div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          {{ form.atividade_arg }}</div>
-        <div class="form-group col-md-6">
-          {{ form.quantidade_pessoa }}</div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          {{ form.situacao }}</div>
-      </div>
-      <div class="form-group text-right">
-        <button type="submit" class="btn btn-success">Cadastrar</button>
-      </div>
-    </form>
+    {% comment %} criar formulario com base no formulario que vem direto do forms.py {% endcomment %}
+    <div class="container">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </form>
   </div>
 {% endblock %}
