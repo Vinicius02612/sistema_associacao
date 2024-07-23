@@ -1,3 +1,5 @@
+
+{% extends 'base.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt">
@@ -16,7 +18,6 @@
     <link rel="stylesheet" href="{% static 'home/css/sobre.css' %}">
     <link rel="stylesheet" href="{% static 'home/css/projeto.css' %}">
     <link rel="stylesheet" href="{% static 'home/css/contato.css' %}">
-
     <title>AQBA</title>
 </head>
 
@@ -40,84 +41,14 @@
         {% include "global/partials/footer.html" %}
     </section>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>  
-      
-      // Get the carousel element
-      const carousel = document.getElementById('carouselExampleIndicators');
-      
-      // Get the carousel items
-      const items = carousel.querySelectorAll('.carousel-item');
-
-      // Get the indicators
-      const indicators = carousel.querySelectorAll('.carousel-indicators li');
-
-      // Initialize the current slide index
-      let currentIndex = 0;
-
-      // Function to move to the next slide
-      function nextSlide() {
-        // Move to the next slide
-        currentIndex = (currentIndex + 1) % items.length;
-        updateCarousel();
-      }
-
-      // Function to move to the previous slide
-      function prevSlide() {
-        // Move to the previous slide
-        currentIndex = (currentIndex - 1 + items.length) % items.length;
-        updateCarousel();
-      }
-
-      // Add animation to the carousel items
-      items.forEach(item => {
-        item.style.transition = 'transform 0.5s ease-in-out';
-      });
-
-      // Function to update the carousel state
-      function updateCarousel() {
-        // Remove the active class from all items
-        items.forEach(item => item.classList.remove('active'));
-        // Add the active class to the current item
-        items[currentIndex].classList.add('active');
-
-        // Update the indicators
-        indicators.forEach(indicator => indicator.classList.remove('active'));
-        indicators[currentIndex].classList.add('active');
-      }
-
-      // Add event listeners to the control buttons
-      carousel.querySelectorAll('.carousel-control-next').forEach(button => {
-        button.addEventListener('click', () => {
-          nextSlide();
-          resetAutoSlide(); // Reset the auto-slide timer on manual navigation
-        });
-      });
-
-      carousel.querySelectorAll('.carousel-control-prev').forEach(button => {
-        button.addEventListener('click', () => {
-          prevSlide();
-          resetAutoSlide(); // Reset the auto-slide timer on manual navigation
-        });
-      });
-
-      // Function to start auto-slide
-      let autoSlideInterval;
-
-      function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, 4000); // Change slide every 4 seconds
-      }
-
-      // Function to reset auto-slide
-      function resetAutoSlide() {
-        clearInterval(autoSlideInterval);
-        startAutoSlide();
-      }
-
-      // Initialize the carousel
-      updateCarousel();
-      startAutoSlide(); // Start auto-slide on page load
-
-    
+      $('.carousel').carousel({
+        interval: 4000
+      })
+        
       document.addEventListener("DOMContentLoaded", function () {
       const carrosselContainer = document.querySelector('.carrossel-containerP');
       const nextButton = document.getElementById('nextP');

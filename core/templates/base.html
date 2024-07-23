@@ -1,41 +1,142 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt">
-
 <head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  {% load bootstrap5 %}
-  {# Load CSS and JavaScript #}
-  {% bootstrap_css %}
-  {% bootstrap_javascript %}
-  <link rel="stylesheet" href="{% static 'socios/socios/socios.css' %}">
-  {# Display django.contrib.messages as Bootstrap alerts #}
-  {% bootstrap_messages %}
-  <title>AQBA</title>
-
-  <!-- Bootstrap core CSS -->
-
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% load bootstrap5 %}
+    <!-- Load CSS and JavaScript -->
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/sobre.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/projeto.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/contato.css' %}">
+    <title>AQBA</title>
 </head>
-
 <body>
     <!-- Navigation -->
 
-  {% include "partials/menu.html" %}
+    {% include 'global/partials/header.html' %}
 
 
   <!-- Page Content -->
-  <div class="container">
+  <div class="">
 
-    {%block conteudo%}{%endblock%}
+    {%block conteudo%}{%endblock conteudo %}
 
   </div>
 
 
 </body>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>  
+  $('.carousel').carousel({
+    interval: 4000
+  })
+    
+  document.addEventListener("DOMContentLoaded", function () {
+  const carrosselContainer = document.querySelector('.carrossel-containerP');
+  const nextButton = document.getElementById('nextP');
+  const prevButton = document.getElementById('prevP');
+
+  // Calcula a largura de um card incluindo margens
+  const card = document.querySelector('.produto-container');
+  const cardMargin = parseInt(getComputedStyle(card).marginRight);
+  const cardWidth = card.clientWidth + cardMargin;
+
+  let currentIndex = 0; // Índice do primeiro card visível
+
+  const updateVisibleCards = () => {
+    // Verifica a largura da tela e ajusta os cards visíveis
+    return window.innerWidth < 768 ? 1 : Math.floor(carrosselContainer.clientWidth / cardWidth);
+  };
+
+  const updateVisible2Cards = () => {
+    // Se a largura da tela for menor que 860px, exibir 2 cartões
+    return window.innerWidth < 860 ? 2 : Math.floor(carrosselContainer.clientWidth / cardWidth);
+  };
+
+  let visibleCards = updateVisibleCards(); // Atualiza com base na largura da tela
+
+  const updateButtons = () => {
+    // Determina o índice máximo do primeiro card que pode ser mostrado
+    const maxIndex = Math.floor((carrosselContainer.scrollWidth - carrosselContainer.clientWidth) / cardWidth);
+
+    // Atualiza o estado dos botões
+    prevButton.disabled = currentIndex <= 0;
+    nextButton.disabled = currentIndex >= maxIndex;
+  };
+
+  const moveCarrossel = (direction) => {
+    if (window.innerWidth < 768) {
+      visibleCards = updateVisibleCards(); // Atualiza os cards visíveis
+      let step = visibleCards + 0.05;
+
+      if (window.innerWidth < 700) {
+        step = (visibleCards + 0.03);
+      }
+      if (window.innerWidth < 600) {
+        step = (visibleCards + 0.04);
+      }
+      if (window.innerWidth < 500) {
+        step = (visibleCards + 0.04);
+      }
+      if (window.innerWidth < 400) {
+        step = (visibleCards + 0.02);
+      }
+
+      if (direction === 'nextP' && currentIndex < Math.floor((carrosselContainer.scrollWidth - carrosselContainer.clientWidth) / cardWidth)) {
+        currentIndex += step; // Pula pelo número de cards visíveis
+      } else if (direction === 'prevP' && currentIndex > 0) {
+        currentIndex -= step; // Pula para trás pelo número de cards visíveis
+      }
+    }
+    else if (window.innerWidth < 1000) {
+      visibleCards = updateVisible2Cards(); // Atualiza os cards visíveis
+      let step = (visibleCards + 0.08);
+      if (direction === 'nextP' && currentIndex < Math.floor((carrosselContainer.scrollWidth - carrosselContainer.clientWidth) / cardWidth)) {
+        currentIndex += step; // Pula pelo número de cards visíveis
+      } else if (direction === 'prevP' && currentIndex > 0) {
+        currentIndex -= step; // Pula para trás pelo número de cards visíveis
+      }
+    } 
+    else if (window.innerWidth < 1500) {
+      visibleCards = updateVisible2Cards(); // Atualiza os cards visíveis
+      let step = (visibleCards + 0.1);
+      if (direction === 'nextP' && currentIndex < Math.floor((carrosselContainer.scrollWidth - carrosselContainer.clientWidth) / cardWidth)) {
+        currentIndex += step; // Pula pelo número de cards visíveis
+      } else if (direction === 'prevP' && currentIndex > 0) {
+        currentIndex -= step; // Pula para trás pelo número de cards visíveis
+      }
+    }  
+    else {
+      visibleCards = updateVisibleCards(); // Atualiza os cards visíveis
+      let step = visibleCards + 0.2;
+      if (direction === 'nextP' && currentIndex < Math.floor((carrosselContainer.scrollWidth - carrosselContainer.clientWidth) / cardWidth)) {
+        currentIndex += step; // Pula pelo número de cards visíveis
+      } else if (direction === 'prevP' && currentIndex > 0) {
+        currentIndex -= step; // Pula para trás pelo número de cards visíveis
+      } 
+    }
+
+    // Move o carrossel para a posição correta
+    carrosselContainer.scrollLeft = currentIndex * cardWidth;
+
+    updateButtons(); // Atualiza o estado dos botões
+  };
+
+  // Adiciona eventos aos botões
+  nextButton.addEventListener('click', () => moveCarrossel('nextP'));
+  prevButton.addEventListener('click', () => moveCarrossel('prevP'));
+
+  updateButtons(); // Atualiza inicialmente os botões
+});
+</script>
 </html>
