@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+  <link rel="stylesheet" href="{% static 'projetos/css/projetos.css' %}">
+  <title>Projetos</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'home/css/menu.css' %}">
+  <script src="{% static 'projetos/js/scripts.js' %}"></script>
+</head>
+
+<body>
+  {% include "admin/partials/header.html" %}
+  <div class="row-container">
+    {% include "admin/partials/menu.html" %}
+    <main class="main-container">
+      <div class="alert alert-dismissible fade" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; height: auto;">
+        {% bootstrap_messages %}
+      </div>
+      {% include "admin/partials/path.html" %}
+      <div class="container p-0 mb-5">
+        <div class="search mt-5">
+          <h5>Digite o título do projeto</h5>
+          <form action="{% url 'projeto:buscar-projeto' %}" method="get">
+            <div class="input-group mb-3">
+              <input id="form-contr" type="search" name="termo" class="form-control" placeholder="Ex: Projeto Feira">
+              <div class="input-group-append">
+                <button id="buttonSearch" class="btn btn-success" type="submit">Buscar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="search h-100 w-100">
+          <table id="tabela" class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Título</th>
+                <th scope="col">Nome da Instituição</th>
+                <th scope="col">Data de Início</th>
+                <th scope="col">Data de Fim</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Participante</th>
+                <th scope="col">Arquivo</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for projeto in projetos %}
+              <tr>
+                <td>{{ projeto.titulo }}</td>
+                <td>{{ projeto.nome_instituicao }}</td>
+                <td>{{ projeto.data_inicio }}</td>
+                <td>{{ projeto.data_final }}</td>
+                <td>{{ projeto.categoria }}</td>
+                <td>{{ projeto.participante }}</td>
+                <td>
+                  <a href="{{ projeto.arquivo_projeto.url }}" class="btn btn-info btn-sm" target="_blank">Visualizar</a>
+                </td>
+                <td>
+                  <form class="d-inline-block">
+                    <button href="{% url 'projeto:atualizar-projeto' projeto.id %}" class="btn btn-warning btn-sm ml-3 text-white" id="editar" style="width: 100%; padding: 0.2rem 1.1rem; margin-bottom: 0.3rem;">Editar</button>
+                  </form>
+                  <form action="{% url 'projeto:deletar-projeto' projeto.id %}" method="post" class="d-inline-block">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm ml-3" id="remover" style="width: 100%; padding: 0.2rem 0.5rem; margin-bottom: 0.3rem;">Remover</button>
+                  </form>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="8">Nenhum projeto encontrado.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="alert alert-dismissible" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; height: auto;">
+        {% bootstrap_messages %}
+      </div>
+    </main>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('#remover').forEach(function (button) {
+        button.addEventListener('click', function (event) {
+          if (!confirm('Tem certeza que deseja remover este projeto?')) {
+            event.preventDefault();
+          }
+        });
+      });
+    });
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  {% include "admin/partials/footer.html" %}
+</body>
+
+</html>

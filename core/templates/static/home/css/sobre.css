@@ -33,14 +33,14 @@
   height: auto;
 }
 
-.carousel-inner {
-  overflow: hidden;
-}
-
 .carousel-item img {
   width: 100%;
   height: 80vh;
 }
+
+
+
+
 
 /* Estilo padrão para imagens */
 .container-img img {

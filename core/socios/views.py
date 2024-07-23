@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Cargo, Socio
 from django.db.models.functions import Concat
@@ -72,3 +72,9 @@ def update_socios(request, id):
     
     return render(request, 'admin/socios/edita_socio.html', {'socioForms':formSocio})
     
+
+def remover_socio(request, id):
+    socio = get_object_or_404(Socio, id=id)
+    socio.delete()
+    messages.success(request, 'Sócio removido com sucesso!')
+    return redirect('socios:BuscarSocio')

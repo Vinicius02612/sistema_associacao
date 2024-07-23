@@ -1,0 +1,35 @@
+body {
+  background-color: #D9D9D9;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding-top: 10%;
+  width: 12.5rem;
+  height: 100vh;
+  background-color: white;
+  z-index: 9;
+}
+.sidebar a {
+  font-size: 1rem;
+  padding: 0.5rem;
+  display: block;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.752);
+  padding: 1.2rem;
+}
+
+.sidebar a.activate {
+  background-color: #d9d9d9b6;
+  background-color: #fafafa40;
+}
+
+.sidebar i {
+  padding-right: 0.4rem;
+}
+#icon {
+  padding-top: 0.3rem;
+  float: right;
+}
