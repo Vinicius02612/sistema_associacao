@@ -1,4 +1,4 @@
-venv/
+/venv
 ./env
 djangoapp/static/
 /djangoapp/media/
