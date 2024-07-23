@@ -7,7 +7,8 @@ from .forms import SocioForm
 
 
 def pageSocio(request):
-    return render(request, 'admin/socios/socios.html')
+    context = {'is_page_admin':True}
+    return render(request, 'admin/socios/socios.html', context)
 
 
 
