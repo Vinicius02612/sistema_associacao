@@ -14,12 +14,12 @@ def login(request):
     else:
         user = request.POST.get('user')
         password = request.POST.get('password')
-        user = auth.authenticate(request, username=user,password=password)
+        is_user = auth.authenticate(request, username=user,password=password)
         if not user:
             messages.error(request, 'Usuário ou senha inválida, tente novamente!')
             return render(request, path)
         else:
-            auth.login(request, user)
+            auth.login(request, is_user)
             messages.success(request, "Login realizado com sucesso!")
             return render(request, pathAdmin)
     
