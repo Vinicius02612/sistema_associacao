@@ -11,7 +11,8 @@ __localcode
 *.log
 *.pot
 *.pyc
-__pycache__/.pyc
+*._pyc
+__pycache__/
 db.sqlite3
 
 # Backup files #
