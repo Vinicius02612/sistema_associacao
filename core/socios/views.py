@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render,get_object_or_404
 from django.contrib import messages
+from django.db.models import Q  # Add this line
 from .models import Cargo, Socio, Mensalidade
 from validate_docbr import CPF
 from .forms import SocioForm
@@ -11,7 +12,15 @@ def pageSocio(request):
     return render(request, 'admin/socios/socios.html', context)
 
 
-
+def verificaCargoSocio(nome_cargo: str):
+    """ So deve existir um cargo com os nomes (Presidente,1º Diretor, 2º Diretor,Suplente, Fiscal , Tesoureiro e Secretario ) """
+    cargos = ['Presidente','1º Diretor','2º Diretor','Suplente','Fiscal','Tesoureiro','Secretario']
+    for cargo in cargos:
+        if nome_cargo == cargo:
+            if Cargo.objects.filter(nome_cargo = nome_cargo).exists():
+                return True
+            else:
+                return False
 
 def addPartners(request):
     if request.method == 'POST':
@@ -42,32 +51,60 @@ def addPartners(request):
             messages.warning(request, "Ja existe um sócio com  esses dados ")
             return render(request, 'admin/socios/socios.html')
         else:
-            cargos = Cargo.objects.create(nome_cargo = cargo)
-            cargos.save()
-            socios = Socio.objects.create(
-                nomeCompleto=nome,
-                cpf=cpf,
-                dataNascimento=data_nascimento,
-                sexo=sexo,
-                registro=rg,
-                arq_autoDeclaracao=declaracao,
-                atividade_agr=atividade,
-                quantidade_pessoa=qtdPessoas,
-                cargo=cargos,
-                situacao=status
-            )
-            socios.save()
-
-            messages.success(request, "Socio cadastrado com sucesso!")
-            return render(request, 'admin/socios/socios.html')
+            if verificaCargoSocio(cargo):
+                messages.warning(request, "Ja existe um sócio com  esse cargo ")
+                return render(request, 'admin/socios/socios.html')
+            else:
+                cargos = Cargo.objects.create(nome_cargo = cargo)
+                cargos.save()
+                socios = Socio.objects.create(
+                    nomeCompleto=nome,
+                    cpf=cpf,
+                    dataNascimento=data_nascimento,
+                    sexo=sexo,
+                    registro=rg,
+                    arq_autoDeclaracao=declaracao,
+                    atividade_agr=atividade,
+                    quantidade_pessoa=qtdPessoas,
+                    cargo=cargos,
+                    situacao=status
+                )
+                socios.save()
+                mensalidade = Mensalidade.objects.create(nome_socio = socios)
+                mensalidade.save()
+                messages.success(request, "Socio cadastrado com sucesso!")
+                return render(request, 'admin/socios/socios.html')
     return render(request, 'admin/socios/socios.html')
     
 
 def searchSocio(request):
     socio = Socio.objects.all()
-    
     busca = request.GET.get('termo')
+    situacao = request.GET.get('situacao')  # Get the value of the 'situacao' parameter
+
     if busca:
+        socio = Socio.objects.filter(Q(nomeCompleto__icontains=busca) | Q(cpf__icontains=busca))
+
+        if situacao:
+            if situacao == 'ativo':
+                socio = socio.filter(situacao=True)
+            elif situacao == 'inativo':
+                socio = socio.filter(situacao=False)
+
+        if socio:
+            messages.success(request, "Socio encontrado!")
+            return render(request, 'admin/socios/buscar_socios.html', {'socios': socio})
+        else:
+            messages.error(request, "Nenhum socio encontrado!")
+            return render(request, 'admin/socios/buscar_socios.html', {'socios': socio})
+
+    return render(request, 'admin/socios/buscar_socios.html', {'socios': socio})
+
+""" 
+def searchSocio(request):
+    socio = Socio.objects.filter(situacao=True)    
+    busca = request.GET.get('termo')
+    if busca: 
         socio = Socio.objects.filter(nomeCompleto__icontains = busca)
         if socio:
             messages.success(request, "Socio encontrado!")
@@ -78,23 +115,37 @@ def searchSocio(request):
 
     return render(request, 'admin/socios/buscar_socios.html',{'socios':socio})
 
+ """
+def view_socio(request, id):
+    socio = get_object_or_404(Socio, id = id)
+    return render(request, 'admin/socios/buscar_socios.html', {'socio':socio})
 
-""" Criar view de editar socio com base no id do socio """
 def edit_socio(request, id):
     socio = get_object_or_404(Socio, id = id)
-    form = SocioForm(request.POST, instance=socio)
-    if form.is_valid():
-        form.save()
-        messages.success(request, "Socio atualizado com sucesso!")
-        return render(request, 'admin/socios/buscar_socios.html', {'form':form, 'socios':socio})
-    return render(request, 'admin/socios/edita_socio.html', {'form':form, 'socios':socio})
+    form = SocioForm(request.POST)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Socio atualizado com sucesso!")
+            return render(request, 'admin/socios/buscar_socios.html', {'form':form,'socio':socio} )
+        else:
+            messages.warning(request, "Erro ao atualizar o sócio!")
+            return render(request, 'admin/socios/edita_socio.html', {'form':form,'socio':socio})
+    
+    return render(request, 'admin/socios/edita_socio.html', {'form':form,'socio':socio})
 
 
 def delete_socio(request, id):
+    """ Deve apenas desativar o sócio e fazer com que ele não apareça mais na lista de sócios """
+
     socio = get_object_or_404(Socio, id = id)
-    socio.delete()
-    messages.success(request, "Socio deletado com sucesso!")
-    return redirect('socios:BuscarSocio')
+    if socio.situacao == True:
+        socio.situacao = False
+        socio.save()
+        messages.success(request, "Socio desativado com sucesso!")
+    
+    return render(request, 'admin/socios/buscar_socios.html', {'socio':socio})
 
 
 def monthly_payment(request):
