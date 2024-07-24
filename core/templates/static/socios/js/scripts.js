@@ -1,3 +1,4 @@
+//abrir modela centralizado
 
 
  // Obter os links e submenus pelo ID e adicionar eventos de clique
@@ -191,3 +192,7 @@ $(document).on('click', '.btn-remover', function() {
       }, 4000);
     }
 });
+
+$('#meuModal').on('shown.bs.modal', function () {
+  $('#meuInput').trigger('focus')
+})
