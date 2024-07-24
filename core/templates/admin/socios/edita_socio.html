@@ -8,16 +8,36 @@
   {% bootstrap_javascript %}
 
   <!-- Alerta fora da estrutura do grid -->
-  <div class="alert alert-dismissible fade" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; height: auto;">
-    {% bootstrap_messages %}
+
+   <!-- Modal -->
+<div class="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Edita Socio {{socio.nomeCompleto}} </h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        
+        <form method="post" action="{% url 'socios:editSocio' id=socio.id %}">
+          {% csrf_token %}
+          {{form_socio.as_p}}
+          
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Salvar mudanças</button>
+      </div>
+    </div>
   </div>
-  <h2>Editar Perfil</h2>
-    {% comment %} criar formulario com base no formulario que vem direto do forms.py {% endcomment %}
-    <div class="container">
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <button type="submit" class="btn btn-primary">Salvar</button>
-      </form>
-  </div>
-{% endblock conteudo %}
+    <!-- Alerta fora da estrutura do grid -->
+    <div class="alert alert-dismissible" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; height: auto;">
+      {% bootstrap_messages %}
+    </div>
+</div>
+
+{% endblock %}

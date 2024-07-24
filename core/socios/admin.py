@@ -19,9 +19,9 @@ class SociosAdmin(admin.ModelAdmin):
                     'situacao',
                     )
 
-    list_display_links = ('id','nomeCompleto')
+    list_display_links = ('id',)
     search_fields = ('nome','cpf',)
-    list_editable = (
+    list_editable = ('nomeCompleto',
                     'cpf',
                     'dataNascimento',
                     'sexo',

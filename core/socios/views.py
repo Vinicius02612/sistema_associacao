@@ -118,34 +118,40 @@ def searchSocio(request):
  """
 def view_socio(request, id):
     socio = get_object_or_404(Socio, id = id)
+    print("socio->",socio)
     return render(request, 'admin/socios/buscar_socios.html', {'socio':socio})
+
 
 def edit_socio(request, id):
     socio = get_object_or_404(Socio, id = id)
-    form = SocioForm(request.POST)
-
+    form = SocioForm( instance=socio)
+    
+    context = {'form_socio':form,'socio':socio}
     if request.method == 'POST':
         if form.is_valid():
             form.save()
             messages.success(request, "Socio atualizado com sucesso!")
-            return render(request, 'admin/socios/buscar_socios.html', {'form':form,'socio':socio} )
+            return render(request, 'admin/socios/edita_socio.html', context )
         else:
             messages.warning(request, "Erro ao atualizar o sócio!")
-            return render(request, 'admin/socios/edita_socio.html', {'form':form,'socio':socio})
+            return render(request, 'admin/socios/edita_socio.html', context)
     
-    return render(request, 'admin/socios/edita_socio.html', {'form':form,'socio':socio})
+    return render(request, 'admin/socios/edita_socio.html', context)
+
 
 
 def delete_socio(request, id):
     """ Deve apenas desativar o sócio e fazer com que ele não apareça mais na lista de sócios """
 
-    socio = get_object_or_404(Socio, id = id)
-    if socio.situacao == True:
-        socio.situacao = False
-        socio.save()
-        messages.success(request, "Socio desativado com sucesso!")
+    socio = get_object_or_404(Socio, id=id)
+    socio.delete()
+    messages.success(request, 'Sócio removido com sucesso!')
+    return redirect('socios:BuscarSocio')
+
     
-    return render(request, 'admin/socios/buscar_socios.html', {'socio':socio})
+    
+    
+    
 
 
 def monthly_payment(request):
