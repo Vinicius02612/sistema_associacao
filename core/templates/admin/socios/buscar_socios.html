@@ -8,7 +8,7 @@
 
   <div class="container p-0 mb-5">
     <div class="search mt-5">
-      <h5>Digite o nome sócio</h5>
+      <h5 >Digite o nome sócio ou CPF</h5>
       <form action="{% url 'socios:BuscarSocio' %}" method="get">
         <div class="input-group mb-3">
           <input id="form-contr" type="search" name="termo" class="form-control" placeholder="Ex: Maria " />
@@ -29,20 +29,27 @@
             <th scope="col">RG</th>
             <th scope="col">Cargo</th>
             <th scope="col">Declaração</th>
+            <th scope="col">Situação</th>
             <th scope="col">Ações</th>
           </tr>
         </thead>
         <tbody>
           {% for socio in socios %}
             <tr>
-              <td>{{ socio.nomeCompleto }}</td>
+              <td><a  data-toggle="modal" data-target="#ExemploModalCentralizado" href="{% url 'socios:viewSocio' id=socio.id %}">{{ socio.nomeCompleto }}</a></td>
               <td>{{ socio.cpf }}</td>
               <td>{{ socio.dataNascimento }}</td>
               <td>{{ socio.sexo }}</td>
               <td>a{{ socio.registro }}</td>
               <td>{{ socio.cargo }}</td>
               <td>{{ socio.arq_autoDeclaracao }}</td>
-
+                <td>
+                  {% if 'situacao.status'  %}
+                    Ativo
+                  {% else %}
+                    Inativo
+                  {% endif %}
+                </td>
               <td>
                 <a href="{% url 'socios:editSocio' id=socio.id %}" class="btn btn-warning btn-sm" id="editar">Editar</a>
                 <a href="{% url 'socios:deleteSocio' id=socio.id %}"  class="ml-3 btn btn-danger btn-sm" id="remover">Remover</a>
@@ -57,4 +64,39 @@
   <div class="alert alert-dismissible" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; height: auto;">
     {% bootstrap_messages %}
   </div>
+
+
+  <!-- Modal -->
+<div class="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Informações do socio  </h3>
+        
+          {{ socio.nomeCompleto }}
+          {{ socio.cpf }}
+          {{ socio.dataNascimento }}
+          {{ socio.sexo }}
+          {{ socio.registro }}
+          {{ socio.cargo }}
+          {{ socio.arq_autoDeclaracao }}
+          {{ socio.situacao }}
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        
+       
+        
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Salvar mudanças</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
