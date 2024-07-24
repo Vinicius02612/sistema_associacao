@@ -123,6 +123,17 @@ input[type="select"] {
     font-weight: bold;
   }
   
+
+  .update-form{
+    margin-left: 7.1rem;
+    width: 100%;
+    background-color: #fff;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+
   body {
     padding-bottom: 5rem;
   }
