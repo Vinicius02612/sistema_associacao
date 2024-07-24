@@ -8,6 +8,7 @@ urlpatterns = [
     path('add_socio/', views.addPartners, name='add_socio'),
     path('search_socio/', views.searchSocio, name='BuscarSocio'),
     path('edit_socio/<int:id>/edit', views.edit_socio, name='editSocio'),
+    path('delete_socio/<int:id>/delete', views.delete_socio, name='deleteSocio'),
     path('mensalidade/', views.monthly_payment, name='mensalidade'),
 
 ]

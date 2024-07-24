@@ -45,7 +45,7 @@
 
               <td>
                 <a href="{% url 'socios:editSocio' id=socio.id %}" class="btn btn-warning btn-sm" id="editar">Editar</a>
-                <a class="ml-3 btn btn-danger btn-sm" id="remover">Remover</a>
+                <a href="{% url 'socios:deleteSocio' id=socio.id %}"  class="ml-3 btn btn-danger btn-sm" id="remover">Remover</a>
               </td>
             </tr>
           {% endfor %}

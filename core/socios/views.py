@@ -90,6 +90,12 @@ def edit_socio(request, id):
     return render(request, 'admin/socios/edita_socio.html', {'form':form, 'socios':socio})
 
 
+def delete_socio(request, id):
+    socio = get_object_or_404(Socio, id = id)
+    socio.delete()
+    messages.success(request, "Socio deletado com sucesso!")
+    return render(request, 'admin/socios/buscar_socios.html')
+
 
 def monthly_payment(request):
     monthly_payment = Mensalidade.objects.all()
