@@ -2,14 +2,17 @@ from django.db import models
 from datetime import datetime,timedelta
 
 # Create your models here.
-
+  
 class Cargo(models.Model):
+    """ Model que representa um cargo """
     nome_cargo = models.CharField(verbose_name="Cargo",max_length=30, blank=False)
 
     def __str__(self):
         return self.nome_cargo
     
+   
 class Socio(models.Model):
+    """ Model que representa um sócio """
     nomeCompleto = models.CharField(verbose_name="Nome",max_length=50, blank=False)
     cpf = models.CharField(verbose_name="CPF", max_length=11, blank=True)
     dataNascimento = models.DateField(verbose_name="Data de Nascimento", blank=False)
@@ -23,18 +26,11 @@ class Socio(models.Model):
     def __str__(self):
         return self.nomeCompleto
     
-    
-    def save(self, *args, **kwargs):
-        super(Socio, self).save(*args, **kwargs)
-        mensalidade = Mensalidade.objects.create(nome_socio=self)
-        mensalidade.save()
-        mensalidade.save_date_validate()
-        mensalidade.save_reference()
-        mensalidade.save_value()
-        mensalidade.save_status()
+
 
 
 class Mensalidade(models.Model):
+    """ Model que representa a mensalidade de cada sócio """
     nome_socio = models.ForeignKey(Socio,on_delete=models.CASCADE)
     descricao = models.CharField(verbose_name="Descrição", max_length=50, blank=False,null=False, default="Mensalidade")
     valor = models.FloatField(verbose_name="Valor", blank=False,null=False, default=5.00)
@@ -72,3 +68,14 @@ class Mensalidade(models.Model):
     def save_status(self, *args, **kwargs):
         self.status = True
         super(Mensalidade, self).save(*args, **kwargs)
+
+
+class Frequencia(models.Model):
+    """ Model que represente uma lista de frequencias de cada sócio, essa deve conter as faltas e presenças de cada sócio durante o ano  """
+    nome_socio = models.ForeignKey(Socio,on_delete=models.CASCADE)
+    mes = models.CharField(verbose_name="Mês", max_length=20, blank=False,null=False)
+    presenca = models.IntegerField(verbose_name="Presença", blank=False,null=False, default=0)
+    falta = models.IntegerField(verbose_name="Falta", blank=False,null=False, default=0)
+    total = models.IntegerField(verbose_name="Total", blank=False,null=False, default=0)
+    def __str__(self):
+        return self.nome_socio.nomeCompleto
