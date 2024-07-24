@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import redirect, render,get_object_or_404
 from django.contrib import messages
 from .models import Cargo, Socio, Mensalidade
 from validate_docbr import CPF
@@ -94,7 +94,7 @@ def delete_socio(request, id):
     socio = get_object_or_404(Socio, id = id)
     socio.delete()
     messages.success(request, "Socio deletado com sucesso!")
-    return render(request, 'admin/socios/buscar_socios.html')
+    return redirect('socios:BuscarSocio')
 
 
 def monthly_payment(request):
