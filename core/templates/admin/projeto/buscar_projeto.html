@@ -37,11 +37,12 @@
               <td>a{{projeto.data_inicio}}</td>
               <td>{{projeto.data_final}}</td>
               <td> {{projeto.categoria}}</td>
-              <td>  
-                {% if projeto.status is False  %}
-                    ativo
+              <td>
+                <!-- Mostrar status com texto Ativo ou Inativo de acordo com status, usando tags do django -->
+                {% if 'projeto.status'  %}
+                    Ativo
                 {% else %}
-                    inativo
+                    Inativo
                 {% endif %} 
              </td>
               <td>
