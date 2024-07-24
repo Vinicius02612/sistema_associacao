@@ -38,7 +38,13 @@
               <td>{{ pay.valor }}</td>
               <td>{{ pay.refence_data }}</td>
               <td>a{{ pay.data_validade }}</td>
-              <td>{{ pay.status }}</td>
+              <td> 
+                {% if 'pay.status' %}
+                  Pago
+                {% else %}
+                  Pendente
+                {% endif %}  
+              </td>
               <td>
                 <a href="" class="btn btn-warning btn-sm" id="editar">Editar</a>
                 <a class="ml-3 btn btn-danger btn-sm" id="remover">Remover</a>
