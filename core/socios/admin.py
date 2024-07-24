@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Socio, Cargo, Mensalidade
+from .models import Socio, Cargo, Mensalidade, Frequencia
 # Register your models here.
 
 class AdminCargo(admin.ModelAdmin):
@@ -19,9 +19,9 @@ class SociosAdmin(admin.ModelAdmin):
                     'situacao',
                     )
 
-    list_display_links = ('id',)
+    list_display_links = ('id','nomeCompleto')
     search_fields = ('nome','cpf',)
-    list_editable = ('nomeCompleto',
+    list_editable = (
                     'cpf',
                     'dataNascimento',
                     'sexo',
@@ -37,6 +37,12 @@ class SociosAdmin(admin.ModelAdmin):
 class AdminMensalidade(admin.ModelAdmin):
     list_display = ('id', 'nome_socio', 'descricao','reference_data', 'data_validade','status')
 
+
+class AdminFrequencia(admin.ModelAdmin):
+    list_display = ('id', 'nome_socio','mes','presenca','falta','total')
+    list_display_links = ('id', 'nome_socio','mes','presenca','falta','total')
+
 admin.site.register(Cargo,AdminCargo)
 admin.site.register(Socio, SociosAdmin)
 admin.site.register(Mensalidade, AdminMensalidade)
+admin.site.register(Frequencia, AdminFrequencia)
