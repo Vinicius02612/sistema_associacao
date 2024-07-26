@@ -124,19 +124,23 @@ def view_socio(request, id):
 
 def edit_socio(request, id):
     socio = get_object_or_404(Socio, id = id)
-    form = SocioForm( instance=socio)
-    
-    context = {'form_socio':form,'socio':socio}
     if request.method == 'POST':
+        form = SocioForm(request.POST, instance=socio)
+
         if form.is_valid():
             form.save()
+            context = {'form_socio':form,'socio':socio}
+
             messages.success(request, "Socio atualizado com sucesso!")
-            return render(request, 'admin/socios/edita_socio.html', context )
+            return redirect('socios:BuscarSocio')
         else:
+
             messages.warning(request, "Erro ao atualizar o sócio!")
-            return render(request, 'admin/socios/edita_socio.html', context)
-    
-    return render(request, 'admin/socios/edita_socio.html', context)
+            return redirect('socios:BuscarSocio')
+    else:
+        form = SocioForm(instance=socio)
+        context = {'form_socio':form,'socio':socio}
+    return render(request, 'admin/socios/buscar_socios.html',context)
 
 
 

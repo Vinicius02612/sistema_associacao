@@ -8,7 +8,6 @@ from django.contrib.auth.decorators import login_required
 def login(request):
 
     path = "accounts/login.html"
-    pathAdmin = "admin/home/home.html"
     if request.method != "POST":
         return render(request, path)
     else:
@@ -21,7 +20,7 @@ def login(request):
         else:
             auth.login(request, user)
             messages.success(request, "Login realizado com sucesso!")
-            return render(request, pathAdmin)
+            return redirect('pageadmin:page')
     
 
 

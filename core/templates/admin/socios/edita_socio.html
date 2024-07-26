@@ -8,7 +8,7 @@
   {% bootstrap_javascript %}
 
   <!-- Alerta fora da estrutura do grid -->
-
+<h1>Aqui jas meu codigo</h1>
    <!-- Modal -->
 <div class="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
@@ -23,7 +23,8 @@
         
         <form method="post" action="{% url 'socios:editSocio' id=socio.id %}">
           {% csrf_token %}
-          {{form_socio.as_p}}
+          <h1>Cado o formulario</h1>
+          {{context.form_socio.as_p}}
           
         </form>
 
