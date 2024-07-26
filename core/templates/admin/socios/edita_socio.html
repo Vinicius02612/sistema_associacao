@@ -2,43 +2,75 @@
 {% load static %}
 
 {% block conteudo %}
-  {% load bootstrap5 %}
   {# Load CSS and JavaScript #}
+  {% load django_bootstrap5 %}
   {% bootstrap_css %}
   {% bootstrap_javascript %}
 
   <!-- Alerta fora da estrutura do grid -->
-<h1>Aqui jas meu codigo</h1>
-   <!-- Modal -->
-<div class="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Edita Socio {{socio.nomeCompleto}} </h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-      <div class="modal-body">
-        
-        <form method="post" action="{% url 'socios:editSocio' id=socio.id %}">
-          {% csrf_token %}
-          <h1>Cado o formulario</h1>
-          {{context.form_socio.as_p}}
-          
-        </form>
+  {% comment %} {% endcomment %}
+  <div class="hidden mb-5"></div>
 
+  <!-- Modal -->
+
+  <form method="post" action="{% url 'socios:editSocio' socio.id %}" enctype="multipart/form-data" class="edit-socio-form form form-group">
+    {% csrf_token %}
+    <div class="row col-12">
+      <div class="col col-md-5">
+        <label for="{{ form.nomeCompleto.id_for_label }}">Nome Completo</label>
+        {{ form.nomeCompleto }}
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary">Salvar mudanças</button>
+
+      <div class="col col-md-3">
+        <label for="{{ form.cpf.id_for_label }}">CPF</label>
+        {{ form.cpf }}
+      </div>
+
+      <div class="ml-5 col">
+        <label for="{{ form.sexo.id_for_label }}">Sexo</label>
+        {{ form.sexo }}
       </div>
     </div>
-  </div>
-    <!-- Alerta fora da estrutura do grid -->
-    <div class="alert alert-dismissible" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; height: auto;">
-      {% bootstrap_messages %}
-    </div>
-</div>
 
+    <div class="row col col-12">
+      <div class="col col-md-4">
+        <label for="{{ form.registro.id_for_label }}">RG</label>
+        {{ form.registro }}
+      </div>
+
+      <div class="col col-md-4">
+        <label for="{{ form.arq_autoDeclaracao.id_for_label }}">Declaração</label>
+        {{ form.arq_autoDeclaracao }}
+      </div>
+
+      <div class="ml-5 col col-md-2">
+        <label for="{{ form.dataNascimento.id_for_label }}">Data de Nascimento</label>
+        {{ form.dataNascimento }}
+      </div>
+    </div>
+
+    <div class="row col-12">
+      <div class="col-md-4">
+        <label for="{{ form.cargo.id_for_label }}">Cargo</label>
+        {{ form.cargo }}
+      </div>
+      <div class="col-md-3">
+        <label for="{{ form.atividade_agr.id_for_label }}">Atividade</label>
+        {{ form.atividade_agr }}
+      </div>
+
+      <div class="col-md">
+        <label for="{{ form.quantidade_pessoa.id_for_label }}">Quantidade de Pessoas na Família</label>
+        {{ form.quantidade_pessoa }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="linha-cinza" style="border-bottom: 1px solid #ccc; width: 96%; margin: auto;"></div>
+    </div>
+    <div class="row" style="padding: 1.5rem 0; padding-right: 1rem;">
+      <div class="col d-flex justify-content-end">
+        <button class="btn btn-warning" type="submit" id="cadastrar">Salva Alterações</button>
+      </div>
+    </div>
+  </form>
 {% endblock %}

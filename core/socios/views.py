@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render,get_object_or_404
 from django.contrib import messages
-from django.db.models import Q  # Add this line
+from django.db.models import Q
 from .models import Cargo, Socio, Mensalidade
 from validate_docbr import CPF
 from .forms import SocioForm
@@ -100,22 +100,7 @@ def searchSocio(request):
 
     return render(request, 'admin/socios/buscar_socios.html', {'socios': socio})
 
-""" 
-def searchSocio(request):
-    socio = Socio.objects.filter(situacao=True)    
-    busca = request.GET.get('termo')
-    if busca: 
-        socio = Socio.objects.filter(nomeCompleto__icontains = busca)
-        if socio:
-            messages.success(request, "Socio encontrado!")
-            return render(request, 'admin/socios/buscar_socios.html',{'socios':socio})
-        else:
-            messages.error(request, "Nenhum socio encontrado!")
-            return render(request, 'admin/socios/buscar_socios.html',{'socios':socio})
 
-    return render(request, 'admin/socios/buscar_socios.html',{'socios':socio})
-
- """
 def view_socio(request, id):
     socio = get_object_or_404(Socio, id = id)
     print("socio->",socio)
@@ -123,26 +108,20 @@ def view_socio(request, id):
 
 
 def edit_socio(request, id):
-    socio = get_object_or_404(Socio, id = id)
+    socio = get_object_or_404(Socio, id=id)
     if request.method == 'POST':
-        form = SocioForm(request.POST, instance=socio)
-
+        form = SocioForm(request.POST, request.FILES, instance=socio)  # Incluindo request.FILES para lidar com arquivos
         if form.is_valid():
             form.save()
-            context = {'form_socio':form,'socio':socio}
-
-            messages.success(request, "Socio atualizado com sucesso!")
+            messages.success(request, 'Sócio atualizado com sucesso!')
             return redirect('socios:BuscarSocio')
         else:
-
-            messages.warning(request, "Erro ao atualizar o sócio!")
-            return redirect('socios:BuscarSocio')
+            return render(request, 'admin/socios/edita_socio.html', {'form': form, 'socio': socio})
     else:
         form = SocioForm(instance=socio)
-        context = {'form_socio':form,'socio':socio}
-    return render(request, 'admin/socios/buscar_socios.html',context)
+        return render(request, 'admin/socios/edita_socio.html', {'form': form, 'socio': socio})
 
-
+    
 
 def delete_socio(request, id):
     """ Deve apenas desativar o sócio e fazer com que ele não apareça mais na lista de sócios """
