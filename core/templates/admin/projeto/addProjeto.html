@@ -37,11 +37,10 @@
         <div class="row">
             <div class="col">
                 <label for="categoria">Categoria</label>
-                <select class="form-control" name="categoria" id="categoria" required>
+                <select class="form-control" id="categoria" name="categoria">
                     <option value="">Selecione uma categoria</option>
-                    {% for categoria in categorias %}
-                        <option value="{{ categoria.id }}">{{ categoria.categoria }}</option>
-                    {% endfor %}
+                    <option value="Comunidade">Comunidade</option>
+                    <option value="Associado">Associado</option>
                 </select>
             </div>
             <div class="col">

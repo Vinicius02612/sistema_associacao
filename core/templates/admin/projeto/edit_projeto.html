@@ -1,0 +1,136 @@
+{% load static %}
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+  <title>Editar Projeto</title>
+  <style>
+    body .row {
+        margin-left: 7.1rem;
+        width: 97%;
+        background-color: #fff;
+        padding-left: 1rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    
+    .add-container {
+        margin: 0 auto;
+        padding-left: 12rem;
+        padding-top: 11rem;
+    }
+    .add-container nav {
+        width: 80%;
+    }
+    
+    input[type="text"], input[type="date"], select, input[type="file"] {
+        background-color: #d9d9d953; 
+    }
+    
+    #titulo {
+        width: 31.5rem;
+    }
+    #instituicao, #pdf {
+        width: 15rem; 
+    }
+    #dataInicio, #dataFim {
+        width: 14rem;
+    }
+    .custom-file-upload {
+        border: 1px solid #ccc;
+        display: block;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+    #participante {
+        width: 10rem;
+    }
+    #categoria {
+        width: 12rem;
+    }
+    
+    .add-container {
+        margin: 0 auto;
+        padding-left: 12rem;
+        padding-top: 7.5rem;
+    }
+    .add-container nav {
+        width: 81%;
+    }
+    body .search {
+        margin-left: 7.1rem;
+        width: 97%;
+    }
+    .search p {
+        padding: 0;
+        margin: 0;
+        margin-bottom: 0.5rem;
+        font-size: small;
+        color: rgba(0, 0, 0, 0.504);
+    }
+    #form-contr {
+        border-radius: 6px;
+        width: 75%;
+    }
+    #buttonSearch {
+        border-radius: 6px;
+        background-color: #1D271A;
+        margin-left: 2rem;
+        padding: 0 2rem;
+    }
+    .table thead th {
+        text-align: center;
+        background-color: #1D271A;
+        color: white;
+        font-size: 0.8rem;
+        font-weight: normal;
+    }
+    .table thead th:nth-child(1) {
+        width: 20%;
+    }
+    .table tbody td {
+        text-align: center;
+    }
+    .table tbody tr:nth-child(even) {
+        background-color: white;
+    }
+    .table tbody tr:nth-child(odd) {
+        background-color: #fafafa10;
+    }
+    #action {
+        font-size: 0.5rem;
+        font-weight: bold;
+    }
+    
+    body {
+        padding-bottom: 5rem;
+    }
+    
+  </style>
+</head>
+
+<body>
+  {% include "admin/partials/header.html" %}
+  <div class="row-container">
+    {% include "admin/partials/menu.html" %}
+    <main class="main-container">
+      <div class="container">
+        <h1>Editar Projeto</h1>
+        <form method="post" enctype="multipart/form-data" class="edit-projeto-form">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+      </div>
+    </main>
+  </div>
+  {% include "admin/partials/footer.html" %}
+</body>
+
+</html>

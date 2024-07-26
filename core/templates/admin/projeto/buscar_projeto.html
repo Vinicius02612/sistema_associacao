@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  {% load bootstrap5 %}
+  {% load django_bootstrap5 %}
+
   {% bootstrap_css %}
   {% bootstrap_javascript %}
   <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
@@ -68,13 +69,13 @@
                 </td>
                 <td>
                   <form class="d-inline-block">
-                    <button href="{% url 'projeto:atualizar-projeto' projeto.id %}" class="btn btn-warning btn-sm ml-3 text-white" id="editar" style="width: 100%; padding: 0.2rem 1.1rem; margin-bottom: 0.3rem;">Editar</button>
+                    <a href="{% url 'projeto:atualizar-projeto' projeto.id %}" class="btn btn-warning btn-sm ml-3 text-white" id="editar" style="width: 100%; padding: 0.2rem 1.1rem; margin-bottom: 0.3rem;">Editar</a>
                   </form>
                   <form action="{% url 'projeto:deletar-projeto' projeto.id %}" method="post" class="d-inline-block">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger btn-sm ml-3" id="remover" style="width: 100%; padding: 0.2rem 0.5rem; margin-bottom: 0.3rem;">Remover</button>
                   </form>
-                </td>
+                </td>                
               </tr>
               {% empty %}
               <tr>

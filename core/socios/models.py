@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Cargo(models.Model):
     nome_cargo = models.CharField(verbose_name="Cargo",max_length=30, blank=False)
 

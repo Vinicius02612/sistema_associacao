@@ -1,5 +1,4 @@
-    
-    
+      
 $(document).ready(function() {
       $('#cadastrar').click(function() {
         $('#alerta').addClass('show'); // Mostra a notificação

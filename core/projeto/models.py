@@ -5,7 +5,7 @@ class Categorias(models.Model):
     nome = models.CharField(verbose_name="Categoria", max_length=50)
     categoria = "Cimento"
 
-    def __str__(self):
+    def _str_(self):
         return self.nome
 
 class Projeto(models.Model):
@@ -14,7 +14,7 @@ class Projeto(models.Model):
     arquivo_projeto = models.FileField(verbose_name="Documento do Projeto", upload_to="projetos", null=False)
     data_inicio = models.DateField(verbose_name="Data de início", blank=False, null=False)
     data_final = models.DateField(verbose_name="Data de fim", blank=False, null=False)
-    categoria = models.ForeignKey(Categorias, verbose_name="Categoria", on_delete=models.DO_NOTHING)
+    categoria = models.CharField(verbose_name="Categoria", max_length=50, blank=False, null=False)  # Alterado para CharField
     participante = models.ForeignKey(Socio, verbose_name="Participante", on_delete=models.DO_NOTHING, blank=False, related_name="projetos")
     situacao = models.BooleanField(verbose_name="Situação atual", blank=False, default=False)
 

@@ -7,6 +7,8 @@ urlpatterns = [
     path('', views.pageSocio, name='socios'),
     path('add_socio/', views.addPartners, name='add_socio'),
     path('search_socio/', views.searchSocio, name='BuscarSocio'),
-    path('edit_socio/<int:id>/edit', views.update_socios, name='editSocio'),
+    #path('edit_socio/<int:id>/edit', views.update_socios, name='editSocio'),
+    path('edit/<int:id>/', views.edit_socio, name='editSocio'),
+ 
     path('remover/<int:id>/', views.remover_socio, name='removerSocio'),
 ]
