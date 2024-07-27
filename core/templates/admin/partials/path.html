@@ -1,25 +1,7 @@
-{% extends 'admin/home/home.html' %}
 
-{% block conteudo %}
-
-  {% if user.is_authenticated %}
 
   {% if is_page_socio%}
-  <div class="add-container d-flex justify-content-center align-items-center mb-0">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb" id="breadcrumb-list">
-        <li class="breadcrumb-item">
-          <a href="#">Inicio</a>
-        </li>
-        <li class="breadcrumb-item">
-          <a href="#">Sócio</a>
-        </li>
-        <li class="breadcrumb-item">
-          <a href="#">Adicionar Sócio</a>
-        </li>
-      </ol>
-    </nav>
-  </div>
+  
   {% endif %}
   {% if is_page_projeto %}
   <div class="add-container d-flex justify-content-center align-items-center mb-0">
@@ -55,7 +37,4 @@
     </nav>
   </div>
   {% endif %}
-  {% endif %}
 
-
-{% endblock conteudo %}

@@ -80,16 +80,9 @@ def addPartners(request):
 def searchSocio(request):
     socio = Socio.objects.all()
     busca = request.GET.get('termo')
-    situacao = request.GET.get('situacao')  # Get the value of the 'situacao' parameter
 
     if busca:
-        socio = Socio.objects.filter(Q(nomeCompleto__icontains=busca) | Q(cpf__icontains=busca))
-
-        if situacao:
-            if situacao == 'ativo':
-                socio = socio.filter(situacao=True)
-            elif situacao == 'inativo':
-                socio = socio.filter(situacao=False)
+        socio = Socio.objects.filter((Q(nomeCompleto__icontains=busca) | Q(cpf__icontains=busca)), situacao=True)
 
         if socio:
             messages.success(request, "Socio encontrado!")
@@ -102,9 +95,21 @@ def searchSocio(request):
 
 
 def view_socio(request, id):
-    socio = get_object_or_404(Socio, id = id)
-    print("socio->",socio)
-    return render(request, 'admin/socios/buscar_socios.html', {'socio':socio})
+    socio = get_object_or_404(Socio, id=id)
+    if request.method == 'POST':
+        form = SocioForm(request.POST, request.FILES, instance=socio)  # Incluindo request.FILES para lidar com arquivos
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Sócio atualizado com sucesso!')
+            return redirect('socios:BuscarSocio')
+           
+        else:
+            messages.error(request, 'Por favor, corrija os erros abaixo.')
+            return redirect('socios:editSocio', id=socio.id)
+
+    else:
+        form = SocioForm(instance=socio)
+        return render(request, 'admin/socios/edita_socio.html', {'form': form, 'socio': socio})
 
 
 def edit_socio(request, id):
@@ -115,8 +120,11 @@ def edit_socio(request, id):
             form.save()
             messages.success(request, 'Sócio atualizado com sucesso!')
             return redirect('socios:BuscarSocio')
+           
         else:
-            return render(request, 'admin/socios/edita_socio.html', {'form': form, 'socio': socio})
+            messages.error(request, 'Por favor, corrija os erros abaixo.')
+            return redirect('socios:editSocio', id=socio.id)
+
     else:
         form = SocioForm(instance=socio)
         return render(request, 'admin/socios/edita_socio.html', {'form': form, 'socio': socio})
@@ -125,11 +133,11 @@ def edit_socio(request, id):
 
 def delete_socio(request, id):
     """ Deve apenas desativar o sócio e fazer com que ele não apareça mais na lista de sócios """
-
     socio = get_object_or_404(Socio, id=id)
-    socio.delete()
-    messages.success(request, 'Sócio removido com sucesso!')
-    return redirect('socios:BuscarSocio')
+    socio.situacao = False
+    socio.save()
+    messages.success(request, 'Sócio desativado com sucesso!')
+    return render(request, 'admin/socios/buscar_socios.html', {'socio': socio})
 
     
     

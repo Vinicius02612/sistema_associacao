@@ -25,13 +25,16 @@
     {% include 'admin/partials/header.html' %}
 
     {% include 'admin/partials/menu.html' %}
-    <!-- Page Content -->
+    
 
-    <main class="main-container">
-      <section class="container">
-        {% block conteudo %}
-
-        {% endblock %}
+    <main class=" main-container">
+      <div class="main">
+        
+          {% block conteudo %}
+  
+          {% endblock %}
+      </div>
+      
       </section>
       <!-- Alerta fora da estrutura do grid -->
       <div class="alert alert-dismissible" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; height: auto;">

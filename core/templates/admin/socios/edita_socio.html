@@ -9,7 +9,22 @@
 
   <!-- Alerta fora da estrutura do grid -->
   {% comment %} {% endcomment %}
-  <div class="hidden mb-5"></div>
+  
+  <div class="add-container ">
+    <nav class="list-content" aria-label="">
+      <ul>
+        <li class="">
+          <a href="#">Inicio</a>
+        </li> >
+        <li class="">
+          <a href="#">Sócio</a>
+        </li> >
+        <li class="">
+          <a href="#">Editar Sócio</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 
   <!-- Modal -->
 
@@ -19,16 +34,25 @@
       <div class="col col-md-5">
         <label for="{{ form.nomeCompleto.id_for_label }}">Nome Completo</label>
         {{ form.nomeCompleto }}
+        <div class="text-danger">
+          {{ form.nomeCompleto.errors }}
+      </div>
       </div>
 
       <div class="col col-md-3">
         <label for="{{ form.cpf.id_for_label }}">CPF</label>
         {{ form.cpf }}
+        <div class="text-danger">
+          {{ form.cpf.errors }}
+        </div>
       </div>
 
       <div class="ml-5 col">
         <label for="{{ form.sexo.id_for_label }}">Sexo</label>
         {{ form.sexo }}
+        <div class="text-danger">
+            {{ form.sexo.errors }}
+        </div>
       </div>
     </div>
 
@@ -36,16 +60,25 @@
       <div class="col col-md-4">
         <label for="{{ form.registro.id_for_label }}">RG</label>
         {{ form.registro }}
+        <div class="text-danger">
+          {{ form.registro.errors }}
+        </div>
       </div>
 
       <div class="col col-md-4">
         <label for="{{ form.arq_autoDeclaracao.id_for_label }}">Declaração</label>
         {{ form.arq_autoDeclaracao }}
+        <div class="text-danger">
+          {{ form.arq_autoDeclaracao.errors }}
+        </div>
       </div>
 
       <div class="ml-5 col col-md-2">
         <label for="{{ form.dataNascimento.id_for_label }}">Data de Nascimento</label>
         {{ form.dataNascimento }}
+        <div class="text-danger">
+          {{ form.dataNascimento.errors }}
+        </div>
       </div>
     </div>
 
@@ -53,15 +86,31 @@
       <div class="col-md-4">
         <label for="{{ form.cargo.id_for_label }}">Cargo</label>
         {{ form.cargo }}
+        <div class="text-danger">
+          {{ form.cargo.errors }}
+        </div>
       </div>
       <div class="col-md-3">
         <label for="{{ form.atividade_agr.id_for_label }}">Atividade</label>
         {{ form.atividade_agr }}
+        <div class="text-danger">
+          {{ form.atividade_agr.errors }}
+        </div>
       </div>
 
-      <div class="col-md">
+      <div class="col-md-3">
         <label for="{{ form.quantidade_pessoa.id_for_label }}">Quantidade de Pessoas na Família</label>
         {{ form.quantidade_pessoa }}
+        <div class="text-danger">
+          {{ form.quantidade_pessoa.errors }}
+        </div>
+      </div>
+      <div class="col-md-1">
+        <label for="{{ form.situacao.id_for_label }}">Situação</label>
+        {{ form.situacao }}
+        <div class="text-danger">
+          {{ form.situacao.errors }}
+        </div>
       </div>
     </div>
     <div class="row">
@@ -69,7 +118,7 @@
     </div>
     <div class="row" style="padding: 1.5rem 0; padding-right: 1rem;">
       <div class="col d-flex justify-content-end">
-        <button class="btn btn-warning" type="submit" id="cadastrar">Salva Alterações</button>
+        <button class="btn btn-warning" type="submit" id="salva">Salva Alterações</button>
       </div>
     </div>
   </form>

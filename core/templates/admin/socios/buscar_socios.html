@@ -5,6 +5,22 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {% block conteudo %}
+
+<div class="add-container ">
+  <nav class="list-content" aria-label="">
+    <ul>
+      <li class="">
+        <a href="#">Inicio</a>
+      </li> >
+      <li class="">
+        <a href="#">Sócio</a>
+      </li> >
+      <li class="">
+        <a href="#">Buscar Sócio</a>
+      </li>
+    </ul>
+  </nav>
+</div>
   <div class="container p-0 mb-5">
     <div class="search mt-5">
       <h5>Digite o nome sócio ou CPF</h5>
@@ -21,7 +37,6 @@
       <table id="tabela" class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">ID</th>
             <th scope="col">Nome</th>
             <th scope="col">CPF</th>
             <th scope="col">Data de Nascimento</th>
@@ -36,26 +51,25 @@
         <tbody>
           {% for socio in socios %}
             <tr>
-              <td>
-                <a data-toggle="modal" data-target="#ExemploModalCentralizado" href="{% url 'socios:viewSocio' id=socio.id %}">{{ socio.id }}</a>
-              </td>
-              <td>{{ socio.nomeCompleto }}</td>
+              <td><a id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado"   href="{% url 'socios:viewSocio' id=socio.id %}">{{ socio.nomeCompleto }}</a> </td>
               <td>{{ socio.cpf }}</td>
               <td>{{ socio.dataNascimento }}</td>
               <td>{{ socio.sexo }}</td>
-              <td>a{{ socio.registro }}</td>
+              <td>{{ socio.registro }}</td>
               <td>{{ socio.cargo }}</td>
-              <td>{{ socio.arq_autoDeclaracao }}</td>
+              <td> 
+                <a href="{{ socio.arq_autoDeclaracao.url }}" class="btn btn-info btn-sm " target="_blank">Ver declaração</a>
+              </td>
               <td>
-                {% if situacao.status %}
-                  Ativo
+                {% if socio.situacao %}
+                    <div class="btn btn-success btn-sm ">Ativo</div> 
                 {% else %}
-                  Inativo
+                    <div class="btn btn-secondary btn-sm">Inativo</div>
                 {% endif %}
+                
               </td>
               <td>
                 <a   href="{% url 'socios:editSocio' id=socio.id %}" class="btn btn-warning btn-sm" id="editar">Editar</a>
-                <a href="{% url 'socios:deleteSocio' id=socio.id %}" class="ml-3 btn btn-danger btn-sm" id="remover">Remover</a>
               </td>
             </tr>
           {% endfor %}
@@ -67,5 +81,6 @@
   <div class="alert alert-dismissible" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; height: auto;">
     {% bootstrap_messages %}
   </div>
- 
+  
+
 {% endblock %}

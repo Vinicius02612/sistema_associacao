@@ -9,14 +9,7 @@ body .row {
     
 }
 
-.add-container {
-    margin: 0 auto;
-    padding-left: 12rem;
-    padding-top: 11rem;
-}
-.add-container nav {
-    width: 80%;
-}
+
 
 input[type="text"] {
     background-color: #d9d9d953; 
@@ -62,14 +55,7 @@ input[type="select"] {
   
 
 /* Buscar socios */
-.add-container {
-    margin: 0 auto;
-    padding-left: 12rem;
 
-  }
-  .add-container nav {
-    width: 81%;
-  }
   body .search {
     margin-left: 7.1rem;
     width: 97%;

@@ -1,6 +1,22 @@
 
 {% extends "admin/home/home.html" %}
 {% block conteudo %}
+
+<div class="add-container ">
+  <nav class="list-content" aria-label="">
+    <ul>
+      <li class="">
+        <a href="#">Inicio</a>
+      </li> >
+      <li class="">
+        <a href="#">Sócio</a>
+      </li> >
+      <li class="">
+        <a href="#">Adicionar Sócio</a>
+      </li>
+    </ul>
+  </nav>
+</div>
       <div class="search mt-5">
         <h5>Buscar Projeto</h5>
         <form action="{% url 'projeto:buscar-projeto' %}" method="get">
