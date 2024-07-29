@@ -1,11 +1,9 @@
-from django.shortcuts import render
-
+from django.shortcuts import redirect, render
 from django.contrib import messages
-from .models import Projeto, Categorias
-from django.db.models.functions import Concat
-from django.db.models import Q, Value
+from .models import Projeto
 from datetime import datetime
-import time
+from .forms import FormProjeto
+
 
 def check_date(date_begin, date_end):
     print(date_begin, date_begin)
@@ -24,43 +22,37 @@ def check_date(date_begin, date_end):
 
 # Create your views here.
 def home_page(request):
-    if request.method == 'POST':
-        title_project = request.POST.get("title_project")
-        name_instituty = request.POST.get("name_instituty")
-        document_project = request.POST.get("document_project")
-        cnpj_user = request.POST.get("cnpj_user")
-        date_begin = request.POST.get("date_begin")
-        date_end = request.POST.get("date_end")
-        category = request.POST.get("categoria")
-        data = [title_project,name_instituty,document_project,cnpj_user,date_begin,date_end, category]
-        if data is None:
-            messages.warning(request, "Todos os campos devem ser preenchidos")
-            return render(request, 'admin/projeto/addProjeto.html')
-        
-        if check_date(date_begin=date_begin, date_end=date_end) is True:
-            messages.warning(request, "Data de inicio não pode ser menor que a final")
-            return render(request, 'admin/projeto/addProjeto.html')
-        else:
-            status = True
-            category = Categorias.objects.create(nome=category)
-            category.save()
-            project = Projeto.objects.create(
-                titulo = title_project,
-                nome_instituicao = name_instituty,
-                arquivo_projeto = document_project,
-                cnpj = cnpj_user,
-                data_inicio = date_begin,
-                data_final = date_end,
-                situacao = status,
-                categoria = category,
-            )
-            project.save()
-            messages.success(request, "Projeto cadastrado com sucesso!")
-        
-    return render(request, 'admin/projeto/addProjeto.html')
+    form = FormProjeto()
 
-def upadate_projeto(request):
-    return render(request, 'admin/projeto/atualizar_projeto.html')
+    if request.method == 'POST':
+        form = FormProjeto(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Projeto cadastrado com sucesso!")
+            return redirect('projeto:AdcionarProjeto')
+        else:
+            messages.error(request, "Erro ao cadastrar projeto!")
+            return render(request, 'admin/projeto/addProjeto.html', {'form': form})
+    return render(request, 'admin/projeto/addProjeto.html', {'form': form})
+        
+        
+
+
+def upadate_projeto(request, id):
+    projeto = Projeto.objects.get(id=id)
+    form = FormProjeto(request.POST, request.FILES, instance=projeto)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Projeto atualizado com sucesso!")
+            return redirect('projeto:buscar-projeto')
+        else:
+            messages.error(request, "Erro ao atualizar projeto !")
+            return render(request, 'admin/projeto/atualizar_projeto.html',{ 'projeto': projeto,'form':form})
+    else:
+        form = FormProjeto(instance=projeto)
+        return render(request, 'admin/projeto/atualizar_projeto.html',{ 'projeto': projeto, 'form':form})
 
 
 def search_projeto(request):

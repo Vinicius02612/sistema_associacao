@@ -1,11 +1,9 @@
 from django.contrib import admin
-from .models import Projeto, Categorias
+from .models import Projeto
 # Register your models here.
 
 
 
-class AdminCategoria(admin.ModelAdmin):
-    list_display =('id','nome')
 
 class ProjetosAdmin(admin.ModelAdmin):
     
@@ -25,5 +23,5 @@ class ProjetosAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(Categorias, AdminCategoria)
+
 admin.site.register(Projeto, ProjetosAdmin)
