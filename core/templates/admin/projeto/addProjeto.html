@@ -10,75 +10,96 @@
     <nav class="list-content" aria-label="">
       <ul>
         <li class="">
-          <a href="#">Inicio</a>
+          <a href="  {% url 'pageadmin:page' %}">Inicio</a>
         </li> >
         <li class="">
-          <a href="#">Sócio</a>
+          <a href="{% url 'projeto:AdcionarProjeto' %}">Projetos</a>
         </li> >
         <li class="">
-          <a href="#">Adicionar Sócio</a>
+          <a href=" ">Adicionar Projetos</a>
         </li>
       </ul>
     </nav>
   </div>
   <!-- Novo container -->
-  <form class="form" action="{% url 'projeto:AdcionarProjeto' %}" method="POST">
+  <form method="post" action="{% url 'projeto:AdcionarProjeto' %}" enctype="multipart/form-data" class="edit-socio-form form form-group">
     {% csrf_token %}
-    {% for field in form %}{% endfor %}
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <label for="tituloProjeto">Titulo do Projeto</label>
-          <input type="text" class="form-control" name="title_project" id="tituloProjeto" placeholder="Ex: Projeto feira" />
-        </div>
-        <div class="col">
-          <label for="instituicao">Nome da instituição/empresa</label>
-          <input type="text" class="form-control" name="name_instituty" id="instituicao" placeholder="Ex: UFPI" />
-        </div>
+    <div class="row col-12">
+      <div class="col col-md-4">
+        <label for="">Titulo do Projeto</label>
+        {{ form.titulo }}
+        <div class="text-danger">
+          {{ form.titulo.errors }}
       </div>
-      <div class="row">
-        <div class="col">
-          <label for="pdf">Documentação do Projeto</label>
-          <div class="custom-file-upload" onclick="document.getElementById('pdf').click();">
-            <i class="fas fa-file-pdf"></i> <span id="file-name">Escolher PDF</span>
-            <input type="file" id="pdf" name="document_project" accept=".pdf" style="display: none;" onchange="document.getElementById('file-name').innerText = this.files[0].name;" />
-          </div>
-        </div>
-        <div class="col">
-          <label for="rg">CNPJ da Instituição</label>
-          <input type="text" class="form-control" name="cnpj_user" id="rg" placeholder="00.000.000/0000-00" />
-        </div>
-        <div class="col">
-          <label for="data">Data de Inicio</label>
-          <input type="date" class="form-control" name="date_begin" id="data" />
-        </div>
-        <div class="col">
-          <label for="data">Datade Fim</label>
-          <input type="date" class="form-control" name="date_end" id="data" />
-        </div>
-        <div class="col mt-4">
-          <label for="cargo">Categoria</label>
-          <select class="form-control" id="categoria" name="categoria">
-            <option value="">Selecione uma categoria</option>
-            <option value="cultura">CULTURA</option>
-            <option value="esportes">ESPORTES</option>
-            <option value="projeto de pesquisa">PROJETOS DE PESQUISA</option>
-            <option value="projeto social">PROJETO SOCIAL</option>
-          </select>
-        </div>
       </div>
-      <div class="row">
-        <div class="linha-cinza" style="border-bottom: 1px solid #ccc; width: 96%; margin: auto;"></div>
-      </div>
-      <div class="row" style="padding: 2rem 0; padding-right: 1rem;">
-        <div class="col d-flex justify-content-end">
-          <button class="btn btn-success" id="cadastrar">Cadastrar</button>
+
+      <div class="col col-md-4">
+        <label for="{{ form.nome_instituicao.id_for_label }}">Nome da Instituição</label>
+        {{ form.nome_instituicao }}
+        <div class="text-danger">
+          {{ form.nome_instituicao.errors }}
         </div>
       </div>
 
-      <!-- Alerta fora da estrutura do grid -->
-      <div class="alert alert-dismissible" role="alert" id="alerta" style="position: fixed; top: 6rem; right: 10rem; z-index: 9999; height: auto;">
-        {% bootstrap_messages %}
+      <div class="col col-md-4">
+        <label for="{{ form.cnpj.id_for_label }}">CNPJ</label>
+        {{ form.cnpj }}
+      </div>
+    </div>
+
+    <div class="row col col-12">
+      <div class="col col-md-4">
+        <label for="{{ form.arquivo_projeto.id_for_label }}">Documento do Projeto</label>
+        {{ form.arquivo_projeto }}
+        {% if form.instance.arquivo_projeto %}
+          <p>
+            Arquivo atual: 
+            <a  class="btn btn-info btn-sm " target="_blank" href="{{form.instance.arquivo_projeto.url}}">
+              {{form.instance.arquivo_projeto.name}}
+            </a>
+          </p>
+        {% endif %}
+      </div>
+
+      <div class="col col-md-4">
+        <label for="{{ form.data_inicio.id_for_label }}">Data de Inicio</label>
+        {{ form.data_inicio }}
+        <div class="text-danger">
+          {{ form.data_inicio.errors }}
+        </div>
+      </div>
+
+      <div class="col col-md-4">
+        <label for="{{ form.data_final.id_for_label }}">Data de Conclusão</label>
+        {{ form.data_final }}
+        <div class="text-danger">
+          {{ form.data_final.errors }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row col-12">
+      <div class="col-md-4">
+        <label for="{{ form.categoria.id_for_label }}">Categoria</label>
+        {{ form.categoria }}
+        <div class="text-danger">
+          {{ form.categoria.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="{{ form.situacao.id_for_label }}">Situação</label>
+        {{ form.situacao }}
+        <div class="text-danger">
+          {{ form.situacao.errors }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="linha-cinza" style="border-bottom: 1px solid #ccc; width: 96%; margin: auto;"></div>
+    </div>
+    <div class="row" style="padding: 1.5rem 0; padding-right: 1rem;">
+      <div class="col d-flex justify-content-end">
+        <button class="btn btn-success" type="submit" id="salva">Cadastrar</button>
       </div>
     </div>
   </form>
