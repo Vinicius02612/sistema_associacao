@@ -4,11 +4,9 @@
     <nav class="list-content" aria-label="">
       <ul>
         <li class="">
-          <a href="#">Inicio</a>
+          <a href="#">Projeto</a>
         </li>><li class="">
-          <a href="#">Sócio</a>
-        </li>><li class="">
-          <a href="#">Adicionar Sócio</a>
+          <a href="#">Buscar Projeto</a>
         </li>
       </ul>
     </nav>
@@ -45,7 +43,15 @@
             <td>{{ projeto.titulo }}</td>
             <td>{{ projeto.nome_instituicao }}</td>
             <td>{{ projeto.cnpj }}</td>
-            <td><a href="{{projeto.arquivo_projeto.url }}"  class="btn btn-info btn-sm " target="_blank">Ver Documento</a></td>
+
+            <td>
+              {% if projeto.arquivo_projeto %}
+                <a href="{{ projeto.arquivo_projeto.url }}" class="btn btn-info btn-sm" target="_blank">Ver Documento</a>
+              {% else %}
+                <span class="text-muted">Sem Documento</span>  
+              {% endif %}
+            </td>
+             
             <td>{{ projeto.data_inicio }}</td>
             <td>{{ projeto.data_final }}</td>
             <td>{{ projeto.categoria }}</td>
@@ -59,7 +65,7 @@
             </td>
             <td>
               <a href="{% url 'projeto:atualizar-projeto' projeto.id %}" class="btn btn-warning btn-sm" id="editar">Editar</a>
-              <a class="btn btn-danger btn-sm" id="remover">Remover</a>
+             
             </td>
           </tr>
         {% endfor %}

@@ -4,18 +4,15 @@
   {# Load CSS and JavaScript #}
   {% bootstrap_css %}
   {% bootstrap_javascript %}
-  
- 
-  <div class="add-container ">
+
+  <div class="add-container">
     <nav class="list-content" aria-label="">
       <ul>
         <li class="">
           <a href="  {% url 'pageadmin:page' %}">Inicio</a>
-        </li> >
-        <li class="">
+        </li>><li class="">
           <a href="{% url 'projeto:AdcionarProjeto' %}">Projetos</a>
-        </li> >
-        <li class="">
+        </li>><li class="">
           <a href=" ">Adicionar Projetos</a>
         </li>
       </ul>
@@ -28,17 +25,13 @@
       <div class="col col-md-4">
         <label for="">Titulo do Projeto</label>
         {{ form.titulo }}
-        <div class="text-danger">
-          {{ form.titulo.errors }}
-      </div>
+        <div class="text-danger">{{ form.titulo.errors }}</div>
       </div>
 
       <div class="col col-md-4">
         <label for="{{ form.nome_instituicao.id_for_label }}">Nome da Instituição</label>
         {{ form.nome_instituicao }}
-        <div class="text-danger">
-          {{ form.nome_instituicao.errors }}
-        </div>
+        <div class="text-danger">{{ form.nome_instituicao.errors }}</div>
       </div>
 
       <div class="col col-md-4">
@@ -53,10 +46,8 @@
         {{ form.arquivo_projeto }}
         {% if form.instance.arquivo_projeto %}
           <p>
-            Arquivo atual: 
-            <a  class="btn btn-info btn-sm " target="_blank" href="{{form.instance.arquivo_projeto.url}}">
-              {{form.instance.arquivo_projeto.name}}
-            </a>
+            Arquivo atual:
+            <a class="btn btn-info btn-sm" target="_blank" href="{{ form.instance.arquivo_projeto.url }}">{{ form.instance.arquivo_projeto.name }}</a>
           </p>
         {% endif %}
       </div>
@@ -64,17 +55,13 @@
       <div class="col col-md-4">
         <label for="{{ form.data_inicio.id_for_label }}">Data de Inicio</label>
         {{ form.data_inicio }}
-        <div class="text-danger">
-          {{ form.data_inicio.errors }}
-        </div>
+        <div class="text-danger">{{ form.data_inicio.errors }}</div>
       </div>
 
       <div class="col col-md-4">
         <label for="{{ form.data_final.id_for_label }}">Data de Conclusão</label>
         {{ form.data_final }}
-        <div class="text-danger">
-          {{ form.data_final.errors }}
-        </div>
+        <div class="text-danger">{{ form.data_final.errors }}</div>
       </div>
     </div>
 
@@ -82,16 +69,12 @@
       <div class="col-md-4">
         <label for="{{ form.categoria.id_for_label }}">Categoria</label>
         {{ form.categoria }}
-        <div class="text-danger">
-          {{ form.categoria.errors }}
-        </div>
+        <div class="text-danger">{{ form.categoria.errors }}</div>
       </div>
       <div class="col-md-4">
         <label for="{{ form.situacao.id_for_label }}">Situação</label>
         {{ form.situacao }}
-        <div class="text-danger">
-          {{ form.situacao.errors }}
-        </div>
+        <div class="text-danger">{{ form.situacao.errors }}</div>
       </div>
     </div>
     <div class="row">

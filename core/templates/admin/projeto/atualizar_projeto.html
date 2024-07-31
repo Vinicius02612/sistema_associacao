@@ -1,5 +1,18 @@
 {% extends "admin/home/home.html" %}
 {% block conteudo %}
+<div class="add-container">
+  <nav class="list-content" aria-label="">
+    <ul>
+      <li class="">
+        <a href="{% url 'projeto:AdcionarProjeto' %}">Projeto</a>
+      </li>><li class="">
+        <a href="{% url 'projeto:buscar-projeto' %}">Buscar Projeto</a>
+      </li>><li class="">
+        <a href="#">Atualizar Projeto</a>
+      </li>
+    </ul>
+  </nav>
+</div>
 <form method="post" action="{% url 'projeto:atualizar-projeto' projeto.id %}" enctype="multipart/form-data" class="edit-socio-form form form-group">
     {% csrf_token %}
     <div class="row col-12">
@@ -41,6 +54,7 @@
 
       <div class="col col-md-4">
         <label for="{{ form.data_inicio.id_for_label }}">Data de Inicio</label>
+        Data atual: {{form.instance.data_inicio}}
         {{ form.data_inicio }}
         <div class="text-danger">
           {{ form.data_inicio.errors }}
@@ -49,7 +63,8 @@
 
       <div class=" col col-md-4">
         <label for="{{ form.data_final.id_for_label }}">Data de Conclusão</label>
-        {{ form.data_final }}
+        {{form.instance.data_final}}
+        {{form.data_final}}
         <div class="text-danger">
           {{ form.data_final.errors }}
         </div>
@@ -75,10 +90,17 @@
     <div class="row">
       <div class="linha-cinza" style="border-bottom: 1px solid #ccc; width: 96%; margin: auto;"></div>
     </div>
-    <div class="row" style="padding: 1.5rem 0; padding-right: 1rem;">
-      <div class="col d-flex justify-content-end">
-        <button class="btn btn-warning" type="submit" id="salva">Salva Alterações</button>
+    {% comment %}  {% endcomment %}
+    <div class="row col-12" >
+    
+      <div class="col col-md-6 d-flex justify-content-start">
+          <a href="{% url 'projeto:buscar-projeto'%}" class="btn btn-warning btn-sm p-2 text-write">Cancelar</a>
       </div>
+      <div class="col col-md-6 d-flex justify-content-end">
+        <button class="btn btn-success " type="submit" id="salva">Salva Alterações</button>
+      </div>
+      
     </div>
+
   </form>
 {% endblock conteudo %}
