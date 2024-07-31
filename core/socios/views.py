@@ -26,7 +26,16 @@ def addPartners(request):
         if not nome or not cpf or not sexo or not rg or not declaracao or not data_nascimento or not cargo or not atividade or not qtdPessoas:
             messages.warning(request, "Todos os campos devem ser preenchidos ")
             return render(request, 'admin/socios/socios.html')
-        
+        else:
+            print("nome:", nome)
+            print("cpf:", cpf)
+            print("sexo:", sexo)
+            print("rg:", rg)
+            print("declaracao:", declaracao)
+            print("data_nascimento:", data_nascimento)
+            print("cargo:", cargo)
+            print("atividade:", atividade)
+            print("atividade:", qtdPessoas)
         if Socio.objects.filter(cpf = cpf).exists():
             messages.warning(request, "Ja existe um sócio com  esses dados ")
             return render(request, 'admin/socios/socios.html')

@@ -1,5 +1,5 @@
 #contato {
-  min-height: 100vh;
+  max-height: 60vh;
 }
 
 .contact {
@@ -110,6 +110,8 @@ form button:hover {
   align-items: center;
   color: #00bfff;
 }
+
+
 
 @media screen and (max-width: 1200px) {
   .footer-bottom {
