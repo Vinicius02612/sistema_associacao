@@ -17,16 +17,18 @@ class FormProjeto(forms.ModelForm):
         self.fields['titulo'].widget = forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'titulo',
+            'placeholder': 'Titulo do projeto'
             
         })
         self.fields['nome_instituicao'].widget = forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'nome_instiuicao',
-            
+            'placeholder': 'Nome da instituição'
         })
         self.fields['cnpj'].widget = forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'cnpj',
+            'placeholder': 'informe o CNPJ',
             
         })
 
@@ -41,11 +43,13 @@ class FormProjeto(forms.ModelForm):
             'class': 'form-control',
             'id': 'data_inicio',
             'type': 'date',
+            'placeholder': 'Data de inicio'
         })
         self.fields['data_final'].widget = forms.DateInput(attrs={
             'class': 'form-control',
             'id': 'data_final',
             'type': 'date',
+            'placeholder': 'Data final'
         })
 
         CATEGORIA_CHOICES = [
@@ -76,47 +80,52 @@ class FormProjeto(forms.ModelForm):
         data_final = cleaned_data.get('data_final')
         cnpj = cleaned_data.get('cnpj')
         arquivo_projeto = self.cleaned_data.get('arquivo_projeto')
+        titulo = cleaned_data.get('titulo')
+        nome_instituicao = cleaned_data.get('nome_instituicao')
+        situacao = cleaned_data.get('situacao')
+        __cnpj = CNPJ()
+ 
+        """ verifica se todos os campos  do formulario estão preenchidos """
+        if not titulo and not nome_instituicao and not situacao and not data_final and not data_final and not cnpj and not arquivo_projeto:
+            self.add_error('titulo', 'Titulo é obrigatório')
+            self.add_error('nome_instituicao', 'Nome da instituição é obrigatório')
+            self.add_error('situacao', 'Situação é obrigatória')
+            self.add_error('data_final', 'Data final é obrigatória')
+            self.add_error('data_inicio', 'Data de inicio é obrigatória')
+            self.add_error('cnpj', 'CNPJ é obrigatório')
+            self.add_error('arquivo_projeto', 'Arquivo do projeto é obrigatório')
 
-        if data_inicio and data_final:
-            self.check_date(data_inicio, data_final)
-        
-        
-        if self.clean_cnpj(cnpj):
-            cleaned_data['cnpj'] = cnpj
-        
-        if self.clean_arquivo_projeto(arquivo_projeto):
-            cleaned_data['arquivo_projeto'] = arquivo_projeto
+        if situacao == 'ativo':
+            cleaned_data['situacao'] = True
+        if situacao == 'inativo':
+            cleaned_data['situacao'] = False
+
+        if not data_final and not data_inicio:
+            self.add_error('data_final', 'Data final é obrigatória')
+            self.add_error('data_inicio', 'Data de inicio é obrigatória')
             
 
-        return cleaned_data
-    
-    def clean_cnpj(self, cnpj):
+        """ Validação para verificar se a data final é maior que a data de inicio """
+        if data_inicio and data_final:
+            if data_final <= data_inicio:
+                self.add_error('data_final', 'Data final deve ser maior que a data de inicio')
         
-        __cnpj = CNPJ()
-        if not __cnpj.validate(cnpj):
-            raise forms.ValidationError('cnpj', 'CNPJ inválido')
-        return __cnpj
-    
-    """ Data final não pode ser menor que a final do projeto """
-    def check_date(self, data_inicio, data_final):
-        dt_data_inicio = datetime.strptime(str(data_inicio), '%Y-%m-%d').date()
-        dt_data_final = datetime.strptime(str(data_final), '%Y-%m-%d').date()
+        """ Vvalidação para verificar se o CNPJ é valido """
+        if cnpj:
+            if not __cnpj.validate(cnpj):
+                self.add_error('cnpj', 'CNPJ inválido')
+        
+        """ Vvalidação para verificar se o arquivo é um pdf """
+        if arquivo_projeto:
+            if not arquivo_projeto.name.endswith('.pdf'):
+                self.add_error('arquivo_projeto', 'O arquivo deve ser um PDF')
 
-        if dt_data_inicio is not None and dt_data_final is not None:
-            if dt_data_final <= dt_data_inicio:
-                forms.ValidationError('data_final', 'Data de final não pode ser menor que a inicial')
+        return cleaned_data
+       
         
-        return [dt_data_inicio, dt_data_final]
-    
-    """ Arquivo deve ser menor 10mb """
-    def clean_arquivo_projeto(self, arquivo_projeto):
-        if arquivo_projeto.size > 10000000:
-            forms.ValidationError('arquivo_projeto', 'Tamanho do arquivo deve ser menor que 10mb')
-        return arquivo_projeto
-    
-    """ Salvar o projeto no banco de dados """
-    def save(self, commit=True):
-        projeto = super(FormProjeto, self).save(commit=False)
-        if commit:
-            projeto.save()
-        return projeto
+
+        
+
+
+
+   
