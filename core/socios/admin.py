@@ -30,7 +30,7 @@ class SociosAdmin(admin.ModelAdmin):
                     'atividade_agr',
                     'quantidade_pessoa',
                     'cargo',
-                    'situacao'
+                    'situacao',
                 )
 
 

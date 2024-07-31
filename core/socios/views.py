@@ -55,25 +55,27 @@ def addPartners(request):
                 messages.warning(request, "Ja existe um sócio com  esse cargo ")
                 return render(request, 'admin/socios/socios.html')
             else:
-                cargos = Cargo.objects.create(nome_cargo = cargo)
-                cargos.save()
-                socios = Socio.objects.create(
-                    nomeCompleto=nome,
-                    cpf=cpf,
-                    dataNascimento=data_nascimento,
-                    sexo=sexo,
-                    registro=rg,
-                    arq_autoDeclaracao=declaracao,
-                    atividade_agr=atividade,
-                    quantidade_pessoa=qtdPessoas,
-                    cargo=cargos,
-                    situacao=status
-                )
-                socios.save()
-                mensalidade = Mensalidade.objects.create(nome_socio = socios)
-                mensalidade.save()
-                messages.success(request, "Socio cadastrado com sucesso!")
-                return render(request, 'admin/socios/socios.html')
+                try:
+
+                    socios = Socio.objects.create(
+                        nomeCompleto=nome,
+                        cpf=cpf,
+                        dataNascimento=data_nascimento,
+                        sexo=sexo,
+                        registro=rg,
+                        arq_autoDeclaracao=declaracao,
+                        atividade_agr=atividade,
+                        quantidade_pessoa=qtdPessoas,
+                        cargo=cargo,
+                        situacao=status
+                    )
+                    socios.save()
+                    mensalidade = Mensalidade.objects.create(nome_socio = socios)
+                    mensalidade.save()
+                    messages.success(request, "Socio cadastrado com sucesso!")
+                except Exception as e:
+                    messages.error(request, "Erro ao cadastrar sócio!")
+                    return render(request, 'admin/socios/socios.html')
     return render(request, 'admin/socios/socios.html')
     
 
@@ -114,20 +116,32 @@ def view_socio(request, id):
 
 def edit_socio(request, id):
     socio = get_object_or_404(Socio, id=id)
+    form = SocioForm(request.POST, request.FILES, instance=socio)  # Incluindo request.FILES para lidar com arquivos
+    if request.method != 'POST':
+        form = SocioForm(instance=socio)
+        return render(request, 'admin/socios/edita_socio.html', {'form': form, 'socio': socio})
     if request.method == 'POST':
-        form = SocioForm(request.POST, request.FILES, instance=socio)  # Incluindo request.FILES para lidar com arquivos
         if form.is_valid():
+            socio = form.save(commit=False)
+            socio.nomeCompleto = form.cleaned_data['nomeCompleto']
+            socio.cpf = form.cleaned_data['cpf']
+            socio.dataNascimento = form.cleaned_data['dataNascimento']
+            socio.sexo = form.cleaned_data['sexo']
+            socio.registro = form.cleaned_data['registro']
+            socio.arq_autoDeclaracao = form.cleaned_data['arq_autoDeclaracao']
+            socio.atividade_agr = form.cleaned_data['atividade_agr']
+            socio.quantidade_pessoa = form.cleaned_data['quantidade_pessoa']
+            socio.cargo = form.cleaned_data['cargo']
+            socio.situacao = form.cleaned_data['situacao']
             form.save()
             messages.success(request, 'Sócio atualizado com sucesso!')
             return redirect('socios:BuscarSocio')
            
         else:
             messages.error(request, 'Por favor, corrija os erros abaixo.')
-            return redirect('socios:editSocio', id=socio.id)
-
-    else:
-        form = SocioForm(instance=socio)
-        return render(request, 'admin/socios/edita_socio.html', {'form': form, 'socio': socio})
+            return render(request, 'admin/socios/edita_socio.html', {'form': form, 'socio': socio})
+    return render(request, 'admin/socios/edita_socio.html', {'form': form, 'socio': socio})
+        
 
     
 

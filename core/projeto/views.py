@@ -5,20 +5,6 @@ from datetime import datetime
 from .forms import FormProjeto
 
 
-def check_date(date_begin, date_end):
-    print(date_begin, date_begin)
-
-    dt_begin = datetime.strptime(date_begin,'%Y-%m-%d').date()
-    dt_end = datetime.strptime(date_end,'%Y-%m-%d').date()
-
-    
-    is_bigger = False
-
-    if dt_end <= dt_begin:
-        is_bigger = True
-
-    return is_bigger
-
 
 # Create your views here.
 def home_page(request):
@@ -46,7 +32,7 @@ def upadate_projeto(request, id):
         if form.is_valid():
             form.save()
             messages.success(request, "Projeto atualizado com sucesso!")
-            return redirect('projeto:buscar-projeto')
+            return redirect('projeto:buscar-projeto', id=projeto.id)
         else:
             messages.error(request, "Erro ao atualizar projeto !")
             return render(request, 'admin/projeto/atualizar_projeto.html',{ 'projeto': projeto,'form':form})

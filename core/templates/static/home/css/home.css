@@ -103,11 +103,12 @@ body{
 }
   
 .cardContainer {
+    margin-top: 130px;
     display: flex;
     justify-content: center;
     padding-top: 2rem;
     align-items: center;
-    flex-wrap: wrap;
+
 
 }
 .card_navigator{
@@ -151,9 +152,10 @@ body{
 
 /* movimentar o card quando passar o mouse e deixar o texto e icone na cor branca */
 .card_navigator:hover {
-    transform: translateY(-10px);
+    transform: translateY(-4px);
     transition: 0.5s;
     background-color: #477C37;
+    
 }
 
 .card-body:hover i,

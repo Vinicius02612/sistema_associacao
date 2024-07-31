@@ -80,7 +80,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <label for="{{ form.situacao.id_for_label }}">Situação</label>
+        <label for="{{ form.situacao.id_for_label }}">Situação:{{form.instance.data_inicio}}</label>
         {{ form.situacao }}
         <div class="text-danger">
           {{ form.situacao.errors }}
