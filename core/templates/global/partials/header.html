@@ -1,17 +1,37 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-    <div class="container">
-      <a class="navbar-brand" >AQBA</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+{% load static %}
 
-
-        {% if user.is_staff %}
-            <li><button class="btn btn-success "><a class="text-white" href="{% url 'pageadmin:page'%}">Administração</a></button></li>
-        {% else %}
-            <li> <button class="btn btn-success text-white"> <a class="text-white" href="{% url 'accounts:login'%}">Login</a></button></li>
-        {% endif %}
-      
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <a class="navbar-brand" href="#">
+    <img src="{% static 'imgs/logo.png' %}" style="height: 3rem;" alt="Logo da associacao">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mx-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#home">Início</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#sobre">Quem somos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#cultura">Eventos culturais</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#projetos">Projetos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#contato">Contato</a>
+      </li>
+    </ul>
+  </div>
+  <div class="form-inline">
+    {% if user.is_staff %}
+      <button class="btn btn-entrar" type="button"><a class="text-white" href="{% url 'pageadmin:page'%}">Administração</a></button>
+    {% else %}
+      <button class="btn btn-entrar" type="button"> <a class="text-white" href="{% url 'accounts:login'%}">Login</a></button>
+    {% endif %}
+  </div>
 </nav>

@@ -1,0 +1,149 @@
+/*Estilos para a página de produto*/
+.produto h1, .cultura h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.projetos {
+  width: 100%;
+  height: 100vh;
+}
+
+.produto {
+  margin-top: 2rem;
+  width: 100%;
+  height: 30vh;
+  text-align: center;
+  display: block;
+}
+
+.produto-content {
+  margin: 5%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.produto-container {
+  width: 15rem;
+  background-color: #F7F7F7;
+  margin-top: 2rem;
+  flex: 0 0 calc(25% - 2rem);
+  margin: 1rem;
+  padding: 1rem;
+  box-shadow: 2px 8px 16px 0 rgba(0, 0, 0, 0.375);
+  transition: opacity 0.5s ease;
+  border-radius: 1rem;
+}
+
+.carrossel-containerP {
+  display: flex;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  /*transition: transform 10s cubic-bezier(0.25, 1, 0.5, 1);*/
+}
+
+.carrossel-fada {
+  opacity: 0.2; 
+}
+
+.produto-container:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+.produto-name {
+  padding: 1rem 0;
+}
+
+.produto-name h4 {
+  color: #010570;
+  font-weight: bolder;
+  font-size: x-large;
+}
+.equipe-img {
+  padding-bottom: 1rem;
+}
+
+.equipe-img img {
+  border-radius: 5%;
+  width: 100%;
+  height: 32vh;
+}
+.button {
+  margin: 0;
+  height: 10%;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 50%;
+  background: #FFFFFF;
+  color: black;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  font-size: 1rem; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  visibility: hidden;
+}
+
+@media screen and (max-width: 1500px) {
+  .produto-container {
+    flex: 0 0 calc(33% - 2rem);
+  }
+  .produto-content {
+    margin: 10% 0;
+  }
+  .carousel-item img {
+    height: 70vh;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .projetos {
+    height: 80vh;
+  }
+  .produto h1, .cultura h1 {
+    margin-bottom: 2rem;
+  }
+  .produto {
+    margin-top: 2rem;
+    width: 100%;
+    height: 70vh;
+  }
+  .produto-container {
+    flex: 0 0 calc(50% - 2rem);
+  }
+  .produto-content {
+    margin: 5% 0;
+  }
+  .carousel-item img {
+    height: 60vh;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .cultura h1 {
+    margin-bottom: 3rem;
+  }
+  .projetos {
+    height: auto;
+  }
+  .produto-container {
+    flex: 0 0 calc(100% - 2rem);
+  }
+  .produto-content {
+    padding-top: 5%;
+    margin: 5% 0;
+  }
+  .carousel-item img {
+    height: 50vh;
+  }
+}

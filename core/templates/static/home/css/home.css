@@ -4,9 +4,60 @@
     
 }
 
-body{
-    overflow-y:hidden;
+/*Estilo da home*/
+.navbar {
+    background-color: transparent;
+}
 
+.navbar.fixed-top {
+    background-color: rgba(0, 0, 0, 0.8); 
+    transition: background-color 0.3s;
+}
+
+.btn-entrar {
+    background-color: green;
+    color: white;
+    margin-right: 3rem;
+}
+.nav-item {
+    padding-left: 1rem;
+    padding-right: 1rem; 
+}
+.navbar.navbar-expand-lg.navbar-light .navbar-nav.mx-auto .nav-item .nav-link {
+    color: white;
+}
+
+.navbar-brand {
+    margin-left: 3rem;
+}
+
+.home {
+    background-image: url('../imgs/Rectangle.png'); 
+    background-position: center center;
+    height: 100vh;
+}
+.homepage {
+    color: white;
+    text-align: center;
+}
+.texto-comunidade {
+    margin-top: 2rem;
+    margin-bottom: 3rem; 
+}
+.btn-conhecer {
+    padding: 0.3rem 3rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: white;
+    border-radius: 5rem;
+}
+
+.full-height {
+    height: 100vh;
+  }
+.btn:hover, .btn:focus {
+    color: white;
 }
 
 
