@@ -32,7 +32,7 @@ def upadate_projeto(request, id):
         if form.is_valid():
             form.save()
             messages.success(request, "Projeto atualizado com sucesso!")
-            return redirect('projeto:buscar-projeto', id=projeto.id)
+            return redirect('projeto:buscar-projeto')
         else:
             messages.error(request, "Erro ao atualizar projeto !")
             return render(request, 'admin/projeto/atualizar_projeto.html',{ 'projeto': projeto,'form':form})

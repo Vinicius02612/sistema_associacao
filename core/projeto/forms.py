@@ -72,60 +72,32 @@ class FormProjeto(forms.ModelForm):
             ('ativo', 'Ativo'),
             ('inativo', 'Inativo')
         ])
-       
-    """ Criar todas das validações dos campos do formulario de projeto """
-    def clean(self):
-        cleaned_data = super(FormProjeto, self).clean()
-        data_inicio = cleaned_data.get('data_inicio')
-        data_final = cleaned_data.get('data_final')
-        cnpj = cleaned_data.get('cnpj')
-        arquivo_projeto = self.cleaned_data.get('arquivo_projeto')
-        titulo = cleaned_data.get('titulo')
-        nome_instituicao = cleaned_data.get('nome_instituicao')
-        situacao = cleaned_data.get('situacao')
-        __cnpj = CNPJ()
- 
-        """ verifica se todos os campos  do formulario estão preenchidos """
-        if not titulo and not nome_instituicao and not situacao and not data_final and not data_final and not cnpj and not arquivo_projeto:
-            self.add_error('titulo', 'Titulo é obrigatório')
-            self.add_error('nome_instituicao', 'Nome da instituição é obrigatório')
-            self.add_error('situacao', 'Situação é obrigatória')
-            self.add_error('data_final', 'Data final é obrigatória')
-            self.add_error('data_inicio', 'Data de inicio é obrigatória')
-            self.add_error('cnpj', 'CNPJ é obrigatório')
-            self.add_error('arquivo_projeto', 'Arquivo do projeto é obrigatório')
 
+    def clean_situacao(self):
+        situacao = self.cleaned_data['situacao']
         if situacao == 'ativo':
-            cleaned_data['situacao'] = True
-        if situacao == 'inativo':
-            cleaned_data['situacao'] = False
-
-        if not data_final and not data_inicio:
-            self.add_error('data_final', 'Data final é obrigatória')
-            self.add_error('data_inicio', 'Data de inicio é obrigatória')
-            
-
-        """ Validação para verificar se a data final é maior que a data de inicio """
-        if data_inicio and data_final:
-            if data_final <= data_inicio:
-                self.add_error('data_final', 'Data final deve ser maior que a data de inicio')
-        
-        """ Vvalidação para verificar se o CNPJ é valido """
-        if cnpj:
-            if not __cnpj.validate(cnpj):
-                self.add_error('cnpj', 'CNPJ inválido')
-        
-        """ Vvalidação para verificar se o arquivo é um pdf """
-        if arquivo_projeto:
-            if not arquivo_projeto.name.endswith('.pdf'):
-                self.add_error('arquivo_projeto', 'O arquivo deve ser um PDF')
-
-        return cleaned_data
+            return True
+        else:
+            return False
+    
+    def clean_cnpj(self):
+        cnpj = self.cleaned_data['cnpj']
+        _cnpj = CNPJ()
+        if _cnpj.validate(cnpj) is not True:
+            raise forms.ValidationError("CNPJ inválido")
+        return cnpj
+    
+    def clean_data_inicio(self):
+        data = self.cleaned_data['data_inicio']
+        if data < datetime.now().date():
+            raise forms.ValidationError("Data de início inválida")
+        return data
        
-        
-
-        
-
-
-
-   
+    
+    def clean_data_final(self):
+        data = self.cleaned_data['data_final']
+        if data < datetime.now().date():
+            raise forms.ValidationError("Data final inválida")
+        return data
+    
+    
