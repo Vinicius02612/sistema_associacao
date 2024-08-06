@@ -81,6 +81,28 @@ class SocioForm(forms.ModelForm):
                 ('inativo', 'Inativo')
         ])
 
+    def clean_cpf(self):
+        cpf = self.cleaned_data['cpf']
+        _cpf = CPF()
+        if  _cpf.validate(cpf) is not True:
+            raise forms.ValidationError("CPF inválido")
+        return cpf
+    
+    def clean_dataNascimento(self):
+        data = self.cleaned_data['dataNascimento']
+        if data > datetime.now().date():
+            raise forms.ValidationError("Data de nascimento inválida")
+        return data
+    
+    def clean_situacao(self):
+        situacao = self.cleaned_data['situacao']
+        if situacao == 'ativo':
+            return True
+        else:
+            return False
+    
+    
+
   
 
    

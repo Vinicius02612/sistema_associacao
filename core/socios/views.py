@@ -4,14 +4,15 @@ from django.db.models import Q
 from .models import Cargo, Socio, Mensalidade
 from validate_docbr import CPF
 from .forms import SocioForm
+from django.contrib.auth.decorators import login_required
 
 
-
+@login_required
 def pageSocio(request):
     context = {'is_page_admin':True}
     return render(request, 'admin/socios/socios.html', context)
 
-
+@login_required
 def verificaCargoSocio(nome_cargo: str):
     """ So deve existir um cargo com os nomes (Presidente,1º Diretor, 2º Diretor,Suplente, Fiscal , Tesoureiro e Secretario ) """
     cargos = ['Presidente','1º Diretor','2º Diretor','Suplente','Fiscal','Tesoureiro','Secretario']
@@ -22,6 +23,7 @@ def verificaCargoSocio(nome_cargo: str):
             else:
                 return False
 
+@login_required
 def addPartners(request):
     if request.method == 'POST':
         
@@ -78,7 +80,7 @@ def addPartners(request):
                     return render(request, 'admin/socios/socios.html')
     return render(request, 'admin/socios/socios.html')
     
-
+@login_required
 def searchSocio(request):
     socio = Socio.objects.all()
     busca = request.GET.get('termo')
@@ -95,7 +97,7 @@ def searchSocio(request):
 
     return render(request, 'admin/socios/buscar_socios.html', {'socios': socio})
 
-
+@login_required
 def view_socio(request, id):
     socio = get_object_or_404(Socio, id=id)
     if request.method == 'POST':
@@ -113,7 +115,7 @@ def view_socio(request, id):
         form = SocioForm(instance=socio)
         return render(request, 'admin/socios/edita_socio.html', {'form': form, 'socio': socio})
 
-
+@login_required
 def edit_socio(request, id):
     socio = get_object_or_404(Socio, id=id)
     form = SocioForm(request.POST, request.FILES, instance=socio)  # Incluindo request.FILES para lidar com arquivos
@@ -144,7 +146,7 @@ def edit_socio(request, id):
         
 
     
-
+@login_required
 def delete_socio(request, id):
     """ Deve apenas desativar o sócio e fazer com que ele não apareça mais na lista de sócios """
     socio = get_object_or_404(Socio, id=id)
