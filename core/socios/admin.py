@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Socio, Cargo, Mensalidade, Frequencia
+from .models import Socio, Mensalidade, Frequencia
 # Register your models here.
 
 class AdminCargo(admin.ModelAdmin):
@@ -42,7 +42,7 @@ class AdminFrequencia(admin.ModelAdmin):
     list_display = ('id', 'nome_socio','mes','presenca','falta','total')
     list_display_links = ('id', 'nome_socio','mes','presenca','falta','total')
 
-admin.site.register(Cargo,AdminCargo)
+
 admin.site.register(Socio, SociosAdmin)
 admin.site.register(Mensalidade, AdminMensalidade)
 admin.site.register(Frequencia, AdminFrequencia)

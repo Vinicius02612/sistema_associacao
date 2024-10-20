@@ -25,68 +25,96 @@
 
 <form class="forms-socios" action="{% url 'socios:add_socio' %}" method="post">
   {% csrf_token %}
-  <div class="row">
-    <div class="col">
-      <label for="nomeCompleto">Nome completo</label>
-      <input type="text" class="form-control" name="nomeCompleto" id="nomeCompleto" placeholder="Digite o nome completo" />
+  <div class="row col-12">
+    <div class="col col-md-5">
+      <label for="{{ form.nomeCompleto.id_for_label }}">Nome Completo</label>
+      {{ form.nomeCompleto }}
+      <div class="text-danger">
+        {{ form.nomeCompleto.errors }}
     </div>
-    <div class="col">
-      <label for="carteiraTrabalho">Informe o CPF</label>
-      <input type="text" name="cpf" class="form-control" id="carteiraTrabalho" placeholder="Ex: 000.000.000-00" />
     </div>
-    <div class="col">
-      <label for="sexo">Sexo</label><br />
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="sexo" id="masculino" value="masculino" />
-        <label class="form-check-label" for="masculino">Masculino</label>
+
+    <div class="col col-md-3">
+      <label for="{{ form.cpf.id_for_label }}">CPF</label>
+      {{ form.cpf }}
+      <div class="text-danger">
+        {{ form.cpf.errors }}
       </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="sexo" id="feminino" value="feminino" />
-        <label class="form-check-label" for="feminino">Feminino</label>
+    </div>
+
+    <div class="ml-5 col">
+      <label for="{{ form.sexo.id_for_label }}">Sexo</label>
+      {{ form.sexo }}
+      <div class="text-danger">
+          {{ form.sexo.errors }}
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <label for="rg">RG</label>
-      <input type="text" class="form-control RG" name="rg" id="rg" placeholder="Digite o RG" />
-    </div>
-    <div class="col">
-      <label for="pdf">Documento de Autodeclaração</label>
-      <div class="custom-file-upload" onclick="document.getElementById('pdf').click();">
-        <i class="fas fa-file-pdf"></i> <span id="file-name">Escolher PDF</span>
-        <input type="file" id="pdf" name="declaracao" accept=".pdf" style="display: none;" onchange="document.getElementById('file-name').innerText = this.files[0].name;" />
+
+  <div class="row col col-12">
+    <div class="col col-md-4">
+      <label for="{{ form.registro.id_for_label }}">RG</label>
+      {{ form.registro }}
+      <div class="text-danger">
+        {{ form.registro.errors }}
       </div>
     </div>
-    <div class="col">
-      <label for="data">Data de Nascimento</label>
-      <input type="date" name="dataNascimento" class="form-control" id="data" />
+
+    <div class="col col-md-4 ">
+      <label for="{{ form.arq_autoDeclaracao.id_for_label }}">Declaração</label>
+      {{ form.arq_autoDeclaracao }}
+      <div class="col col-md-6">
+        {% if form.instance.arq_autoDeclaracao %}
+          Arquivo atual: 
+          <a  class="btn btn-info btn-sm " target="_blank" href="{{form.instance.arq_autoDeclaracao.url}}">
+            {{form.instance.arq_autoDeclaracao.name}}
+          </a>
+    
+        {% endif %}
+      </div>
+      <div class="text-danger">
+        {{ form.arq_autoDeclaracao.errors }}
+      </div>
     </div>
-    <div class="col">
-      <label for="cargo">Cargo</label>
-      <select class="form-control" id="cargo" name="cargo">
-        <option value="">Selecione um cargo</option>
-        <option value="Associado">Associado</option>
-        <option value="Secretario">Secretario</option>
-        <option value="Tesoureiro">Tesoureiro</option>
-        <option value="1 º Diretor">1 º Diretor</option>
-        <option value="2 º Diretor">2 º Diretor</option>
-        <option value="Fiscais">Fiscais</option>
-        <option value="Suplentes">Suplentes</option>
-      </select>
+
+    <div class="ml-5 col col-md-2">
+        <label for="{{ form.dataNascimento.id_for_label }}">Data de Nascimento</label>
+        {{ form.dataNascimento }}
+        <div class="text-danger">
+          {{ form.dataNascimento.errors }}
+        </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <label for="atividade">Mantém atividade agrícola, artesanal ou cultural na comunidade?</label>
-      <select class="form-control" id="atividade" name="atividade">
-        <option value="sim">Sim</option>
-        <option value="nao">Não</option>
-      </select>
+
+  <div class="row col-12">
+    <div class="col-md-4">
+      <label for="{{ form.cargo.id_for_label }}">Cargo</label>
+      {{ form.cargo }}
+      <div class="text-danger">
+        {{ form.cargo.errors }}
+      </div>
     </div>
-    <div class="col familia">
-      <label for="familia">Quantidade de pessoas na família</label>
-      <input type="number" name="quantidadePfamilia" class="form-control" id="familia" placeholder="Digite a quantidade" />
+    <div class="col-md-3">
+      <label for="{{ form.atividade_agr.id_for_label }}">Atividade</label>
+      {{ form.atividade_agr }}
+      <div class="text-danger">
+        {{ form.atividade_agr.errors }}
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <label for="{{ form.quantidade_pessoa.id_for_label }}">Quantidade de Pessoas na Família</label>
+      {{ form.quantidade_pessoa }}
+      <div class="text-danger">
+        {{ form.quantidade_pessoa.errors }}
+      </div>
+    </div>
+    <div class="col-md-1">
+      <label for="{{ form.situacao.id_for_label }}">Situação</label>
+      {{ form.situacao }}
+      <div class="text-danger">
+        {{ form.situacao.errors }}
+      </div>
     </div>
   </div>
   <div class="row">
@@ -94,7 +122,7 @@
   </div>
   <div class="row" style="padding: 1.5rem 0; padding-right: 1rem;">
     <div class="col d-flex justify-content-end">
-      <button class="btn btn-success" type="submit" id="cadastrar">Cadastrar</button>
+      <button class="btn btn-success" type="submit" id="salva">Cadastrar</button>
     </div>
   </div>
 </form>

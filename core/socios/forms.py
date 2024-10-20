@@ -87,7 +87,17 @@ class SocioForm(forms.ModelForm):
         if  _cpf.validate(cpf) is not True:
             raise forms.ValidationError("CPF inválido")
         return cpf
-    
+    def cleaned_declaracao(self):
+        declaracao = self.cleaned_data['arq_autoDeclaracao']
+        if declaracao.content_type != 'application/pdf':
+            raise forms.ValidationError("O arquivo deve ser um PDF")
+        
+        if declaracao is None:
+            raise forms.ValidationError("O arquivo é obrigatório")
+        
+        if declaracao.size > 5242880:
+            raise forms.ValidationError("O arquivo deve ser menor que 5MB")
+        return declaracao
     def clean_dataNascimento(self):
         data = self.cleaned_data['dataNascimento']
         if data > datetime.now().date():

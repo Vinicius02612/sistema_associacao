@@ -3,14 +3,7 @@ from datetime import datetime,timedelta
 from validate_docbr import CPF
 # Create your models here.
   
-class Cargo(models.Model):
-    """ Model que representa um cargo """
-    nome_cargo = models.CharField(verbose_name="Cargo",max_length=30, blank=False)
 
-    def __str__(self):
-        return self.nome_cargo
-    
-   
 class Socio(models.Model):
     """ Model que representa um sócio """
     nomeCompleto = models.CharField(verbose_name="Nome",max_length=50, blank=False)
